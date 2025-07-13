@@ -4,6 +4,12 @@ import torch.nn as nn
 from torchvision.models.resnet import resnet18
 from ..modules.builder import SEG_ENCODER
 
+from mmcv.runner import BaseModule
+from mmseg.models.builder import HEADS
+import torch.nn.functional as F
+#from mmseg.models.decode_heads.segformer_head import SegFormerHead
+
+
 class Up(nn.Module):
     def __init__(self, in_channels, out_channels, scale_factor=2):
         super().__init__()
@@ -26,9 +32,9 @@ class Up(nn.Module):
         return self.conv(x1)
 
 @SEG_ENCODER.register_module()
-class SegEncode(nn.Module):
+class UNet(nn.Module):
     def __init__(self, inC, outC):
-        super(SegEncode, self).__init__()
+        super(UNet, self).__init__()
         trunk = resnet18(pretrained=False, zero_init_residual=True)
         self.conv1 = nn.Conv2d(inC, 64, kernel_size=7, stride=2, padding=3, bias=False)
         self.bn1 = trunk.bn1
@@ -60,12 +66,22 @@ class SegEncode(nn.Module):
         x = self.up2(x) #torch.Size([2, 4, 200, 400]) 语义分割预测特征图
 
         return x
+    
+    def init_weights(self):
+        for m in self.modules():
+            if isinstance(m, (nn.Conv2d, nn.Linear)):
+                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+                if m.bias is not None:
+                    nn.init.zeros_(m.bias)
+            elif isinstance(m, (nn.BatchNorm2d, nn.GroupNorm)):
+                nn.init.ones_(m.weight)
+                nn.init.zeros_(m.bias)
 
 @SEG_ENCODER.register_module()
-class SegEncode_v1(nn.Module):
+class ConvDecoder(nn.Module):
 
     def __init__(self, inC, outC):
-        super(SegEncode_v1, self).__init__()
+        super(ConvDecoder, self).__init__()
         self.seg_head = nn.Sequential(
             nn.Conv2d(inC, inC, kernel_size=3, padding=1),
             nn.ReLU(inplace=True),
@@ -74,6 +90,49 @@ class SegEncode_v1(nn.Module):
     def forward(self, x):
 
         return self.seg_head(x)
+    
+@SEG_ENCODER.register_module()
+class MLP(nn.Module):
+
+    def __init__(self, inC, outC, hidden_dim=None):
+        """
+        inC: number of input channels
+        outC: number of output (semantic) channels / classes
+        hidden_dim: internal MLP width (defaults to inC if None)
+        """
+        super(MLP, self).__init__()
+        hidden_dim = hidden_dim or inC
+        self.mlp = nn.Sequential(
+            nn.Linear(inC, hidden_dim),
+            nn.ReLU(inplace=True),
+            nn.Linear(hidden_dim, outC)
+        )
+
+        # Initialize weights right after construction
+        self.init_weights()
+
+    def init_weights(self):
+        for m in self.modules():
+            if isinstance(m, (nn.Conv2d, nn.Linear)):
+                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+                if m.bias is not None:
+                    nn.init.zeros_(m.bias)
+            elif isinstance(m, (nn.BatchNorm2d, nn.GroupNorm)):
+                nn.init.ones_(m.weight)
+                nn.init.zeros_(m.bias)
+
+    def forward(self, x):
+        """
+        x: [B, inC, H, W]
+        returns: [B, outC, H, W]
+        """
+        B, C, H, W = x.shape
+        # move channels last and flatten spatial dims
+        x_flat = x.permute(0, 2, 3, 1).reshape(B, H * W, C)     # [B, H*W, inC]
+        out_flat = self.mlp(x_flat)                             # [B, H*W, outC]
+        # reshape back to [B, outC, H, W]
+        out = out_flat.reshape(B, H, W, -1).permute(0, 3, 1, 2)  # [B, outC, H, W]
+        return out
 
 
 import math
@@ -183,3 +242,346 @@ num_deconv_kernels=(4, 4, 4),
 use_dcn=True),
         
 """
+
+# ----------------------------
+#  FPN-Style Multi-Scale Decoder
+# ----------------------------
+@SEG_ENCODER.register_module()
+class FPN1(nn.Module):
+    """
+    Single-scale version: no in_channels_list needed.
+    """
+    def __init__(self, inC, outC, fuse_channels=64):
+        super().__init__()
+        # lateral conv (1x1) to fuse_channels
+        self.lateral = nn.Conv2d(inC, fuse_channels, kernel_size=1)
+        # head to go from fuse_channels -> outC
+        self.fuse_head = nn.Sequential(
+            nn.Conv2d(fuse_channels, fuse_channels, kernel_size=3, padding=1, bias=False),
+            nn.BatchNorm2d(fuse_channels),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(fuse_channels, outC, kernel_size=1)
+        )
+        self.init_weights()
+
+    def init_weights(self):
+        # lateral
+        nn.init.kaiming_normal_(self.lateral.weight, mode='fan_out', nonlinearity='relu')
+        if self.lateral.bias is not None:
+            nn.init.zeros_(self.lateral.bias)
+        # fuse head
+        for m in self.fuse_head.modules():
+            if isinstance(m, nn.Conv2d):
+                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+                if m.bias is not None:
+                    nn.init.zeros_(m.bias)
+            elif isinstance(m, (nn.BatchNorm2d, nn.GroupNorm)):
+                nn.init.ones_(m.weight)
+                nn.init.zeros_(m.bias)
+
+    def forward(self, feat):
+        """
+        Args:
+            feat (Tensor): [B, inC, H, W]
+        Returns:
+            Tensor: [B, outC, H, W]
+        """
+        x = self.lateral(feat)
+        return self.fuse_head(x)
+
+#   Input Feature Map
+#       ├── Lateral 1x1 conv (base res)
+#       ├── Downsample (MaxPool)
+#       │    └── Lateral 1x1 conv
+#       └── Upsample back to base res
+#       ↓
+#   Concatenate both branches
+#       ↓
+#   Fuse with conv → BN → ReLU
+#       ↓
+#   Final 1x1 conv → output logits
+@SEG_ENCODER.register_module()
+class FPN2(nn.Module):
+    """
+    FPN-style decoder with 2-layer depth:
+    - One base resolution (H, W)
+    - One downsampled stage (H/2, W/2), upsampled and fused back
+    """
+    def __init__(self, inC, outC, fuse_channels=64):
+        super().__init__()
+        # Stage 1: base resolution lateral
+        self.lateral1 = nn.Conv2d(inC, fuse_channels, kernel_size=1)
+
+        # Stage 2: downsample + lateral
+        self.downsample = nn.MaxPool2d(kernel_size=2, stride=2)
+        self.lateral2 = nn.Conv2d(inC, fuse_channels, kernel_size=1)
+        self.upconv2 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False)
+
+        # Fuse both stages
+        self.fuse = nn.Sequential(
+            nn.Conv2d(fuse_channels * 2, fuse_channels, kernel_size=3, padding=1, bias=False),
+            nn.BatchNorm2d(fuse_channels),
+            nn.ReLU(inplace=True)
+        )
+
+        # Output head
+        self.head = nn.Conv2d(fuse_channels, outC, kernel_size=1)
+
+        self.init_weights()
+
+    def init_weights(self):
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+                if m.bias is not None:
+                    nn.init.zeros_(m.bias)
+            elif isinstance(m, (nn.BatchNorm2d, nn.GroupNorm)):
+                nn.init.ones_(m.weight)
+                nn.init.zeros_(m.bias)
+
+    def forward(self, feat):
+        """
+        Args:
+            feat (Tensor): [B, inC, H, W]
+        Returns:
+            Tensor: [B, outC, H, W]
+        """
+        x1 = self.lateral1(feat)                        # [B, C, H, W]
+        x2_down = self.downsample(feat)                # [B, C, H/2, W/2]
+        x2 = self.lateral2(x2_down)                    # [B, C, H/2, W/2]
+        x2_up = self.upconv2(x2)                       # [B, C, H, W]
+        x_fused = torch.cat([x1, x2_up], dim=1)        # [B, 2C, H, W]
+        x_fused = self.fuse(x_fused)                   # [B, C, H, W]
+        return self.head(x_fused)                      # [B, outC, H, W]
+
+# ----------------------------
+#  DeepLabV3+ Style Decoder (ASPP + Conv Head)
+#  Input BEV feature map (from encoder)
+#          │
+#       [ASPP]
+#    ┌────┼────────────────────────────────────┐
+#    │    ├── 1x1 conv (no dilation)           │
+#    │    ├── 3x3 conv (d=6)                   │
+#    │    ├── 3x3 conv (d=12)                  │
+#    │    ├── 3x3 conv (d=18)                  │
+#    │    └── image-level pooling + upsample  ─┘
+#         ↓
+#     Concatenation → 1x1 conv projection
+#         ↓
+#       [Head]
+#         ↓
+#     Final semantic mask (logits)
+# ----------------------------
+class ASPP(nn.Module):
+    def __init__(self, in_channels, out_channels, dilations=(6, 12, 18)):
+        super().__init__()
+        self.branches = nn.ModuleList()
+        self.branches.append(nn.Sequential(
+            nn.Conv2d(in_channels, out_channels, kernel_size=1, bias=False),
+            nn.BatchNorm2d(out_channels),
+            nn.ReLU(inplace=True),
+        ))
+        for d in dilations:
+            self.branches.append(nn.Sequential(
+                nn.Conv2d(in_channels, out_channels, kernel_size=3,
+                          padding=d, dilation=d, bias=False),
+                nn.BatchNorm2d(out_channels),
+                nn.ReLU(inplace=True),
+            ))
+        self.image_pool = nn.Sequential(
+            nn.AdaptiveAvgPool2d(1),
+            nn.Conv2d(in_channels, out_channels, kernel_size=1, bias=False),
+            nn.BatchNorm2d(out_channels),
+            nn.ReLU(inplace=True),
+        )
+        self.project = nn.Sequential(
+            nn.Conv2d((len(self.branches) + 1) * out_channels,
+                      out_channels, kernel_size=1, bias=False),
+            nn.BatchNorm2d(out_channels),
+            nn.ReLU(inplace=True),
+            nn.Dropout2d(0.1),
+        )
+
+    def forward(self, x):
+        res = [b(x) for b in self.branches]
+        img_feat = self.image_pool(x)
+        img_feat = F.interpolate(img_feat, size=x.shape[2:],
+                                  mode='bilinear', align_corners=False)
+        res.append(img_feat)
+        x = torch.cat(res, dim=1)
+        return self.project(x)
+
+# ----------------------------
+class ASPP(nn.Module):
+    def __init__(self, in_channels, out_channels, dilations=(6, 12, 18)):
+        super().__init__()
+        self.branches = nn.ModuleList([
+            nn.Sequential(
+                nn.Conv2d(in_channels, out_channels, 1, bias=False),
+                nn.BatchNorm2d(out_channels),
+                nn.ReLU(inplace=True),
+            )
+        ] + [
+            nn.Sequential(
+                nn.Conv2d(in_channels, out_channels, 3, padding=d, dilation=d, bias=False),
+                nn.BatchNorm2d(out_channels),
+                nn.ReLU(inplace=True),
+            ) for d in dilations
+        ])
+        self.image_pool = nn.Sequential(
+            nn.AdaptiveAvgPool2d(1),
+            nn.Conv2d(in_channels, out_channels, 1, bias=False),
+            nn.BatchNorm2d(out_channels),
+            nn.ReLU(inplace=True),
+        )
+        self.project = nn.Sequential(
+            nn.Conv2d((len(self.branches) + 1) * out_channels, out_channels, 1, bias=False),
+            nn.BatchNorm2d(out_channels),
+            nn.ReLU(inplace=True),
+            nn.Dropout2d(0.1),
+        )
+
+    def forward(self, x):
+        res = [b(x) for b in self.branches]
+        img = self.image_pool(x)
+        img = F.interpolate(img, size=x.shape[2:], mode='bilinear', align_corners=False)
+        res.append(img)
+        return self.project(torch.cat(res, dim=1))
+
+
+@SEG_ENCODER.register_module()
+class DeepLabV3Plus(nn.Module):
+    def __init__(self, inC, outC, aspp_out=256):
+        super().__init__()
+        self.aspp = ASPP(inC, aspp_out)
+        self.head = nn.Sequential(
+            nn.Conv2d(aspp_out, aspp_out, 3, padding=1, bias=False),
+            nn.BatchNorm2d(aspp_out),
+            nn.ReLU(inplace=True),
+            nn.Dropout2d(0.1),
+            nn.Conv2d(aspp_out, outC, 1)
+        )
+        self.init_weights()
+
+    def init_weights(self):
+        # ASPP
+        for m in self.aspp.modules():
+            if isinstance(m, (nn.Conv2d, nn.Linear)):
+                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+                if hasattr(m, 'bias') and m.bias is not None:
+                    nn.init.zeros_(m.bias)
+            elif isinstance(m, (nn.BatchNorm2d, nn.GroupNorm)):
+                nn.init.ones_(m.weight)
+                nn.init.zeros_(m.bias)
+        # head
+        for m in self.head.modules():
+            if isinstance(m, (nn.Conv2d, nn.Linear)):
+                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+                if hasattr(m, 'bias') and m.bias is not None:
+                    nn.init.zeros_(m.bias)
+            elif isinstance(m, (nn.BatchNorm2d, nn.GroupNorm)):
+                nn.init.ones_(m.weight)
+                nn.init.zeros_(m.bias)
+
+    def forward(self, feat):
+        x = self.aspp(feat)
+        return self.head(x)
+
+
+class SegFormerHead(nn.Module):
+    """
+    Simplified SegFormer decode head:
+      - Projects multi-scale inputs via 1×1 convs.
+      - Upsamples to the highest resolution.
+      - Concatenates, fuses, and classifies.
+    """
+    def __init__(self, in_channels_list, embed_dim=256, num_classes=80, dropout_ratio=0.1):
+        super().__init__()
+        self.num_stages = len(in_channels_list)
+        # per-stage projection
+        self.proj_convs = nn.ModuleList([
+            nn.Sequential(
+                nn.Conv2d(in_ch, embed_dim, 1, bias=False),
+                nn.BatchNorm2d(embed_dim),
+                nn.ReLU(inplace=True),
+            )
+            for in_ch in in_channels_list
+        ])
+        # fusion & dropout
+        self.fuse = nn.Sequential(
+            nn.Conv2d(embed_dim * self.num_stages, embed_dim, 1, bias=False),
+            nn.BatchNorm2d(embed_dim),
+            nn.ReLU(inplace=True),
+            nn.Dropout2d(dropout_ratio)
+        )
+        # classifier
+        self.classifier = nn.Conv2d(embed_dim, num_classes, 1)
+        self.init_weights()
+
+    def init_weights(self):
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                nn.init.kaiming_normal_(m.weight, mode='fan_in', nonlinearity='relu')
+                if m.bias is not None:
+                    nn.init.zeros_(m.bias)
+            elif isinstance(m, (nn.BatchNorm2d, nn.GroupNorm)):
+                nn.init.ones_(m.weight)
+                nn.init.zeros_(m.bias)
+
+    def forward(self, feats):
+        # feats: list of [B, C_i, H_i, W_i]
+        h, w = feats[0].shape[2:]
+        outs = []
+        for f, proj in zip(feats, self.proj_convs):
+            x = proj(f)
+            if x.shape[2:] != (h, w):
+                x = F.interpolate(x, size=(h, w), mode='bilinear', align_corners=False)
+            outs.append(x)
+        x = torch.cat(outs, dim=1)
+        x = self.fuse(x)
+        return self.classifier(x)
+
+
+@SEG_ENCODER.register_module()
+class PanopticSegFormerDecoder(BaseModule):
+    """
+    Panoptic SegFormer decoder for BEV feature maps,
+    self-contained (no external mmseg dependency).
+    """
+    def __init__(self,
+                 inC: int,
+                 outC: int,
+                 channels: int = 256,
+                 num_stages: int = 4,
+                 dropout_ratio: float = 0.1,
+                 init_cfg: dict = None):
+        super().__init__(init_cfg)
+        # Build a SegFormerHead expecting `num_stages` inputs of `inC` channels
+        self.segformer = SegFormerHead(
+            in_channels_list=[inC] * num_stages,
+            embed_dim=channels,
+            num_classes=outC,
+            dropout_ratio=dropout_ratio
+        )
+        self.init_weights()
+
+    def init_weights(self):
+        # Delegate to SegFormerHead init
+        if hasattr(self.segformer, 'init_weights'):
+            self.segformer.init_weights()
+        else:
+            # fallback init
+            for m in self.modules():
+                if isinstance(m, nn.Conv2d):
+                    nn.init.kaiming_normal_(m.weight, mode='fan_in', nonlinearity='relu')
+                    if m.bias is not None:
+                        nn.init.zeros_(m.bias)
+                elif isinstance(m, (nn.BatchNorm2d, nn.GroupNorm)):
+                    nn.init.ones_(m.weight)
+                    nn.init.zeros_(m.bias)
+
+    def forward(self, bev_feats, img_metas=None, **kwargs):
+        # Replicate single feature map if needed
+        if not isinstance(bev_feats, (list, tuple)):
+            bev_feats = [bev_feats] * self.segformer.num_stages
+        return self.segformer(bev_feats)

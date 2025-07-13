@@ -76,7 +76,7 @@ def custom_train_detector(model,
             model.cuda(),
             device_ids=[torch.cuda.current_device()],
             broadcast_buffers=False,
-            find_unused_parameters=find_unused_parameters)
+            find_unused_parameters=True)
         if eval_model is not None:
             eval_model = MMDistributedDataParallel(
                 eval_model.cuda(),
@@ -196,5 +196,7 @@ def custom_train_detector(model,
         runner.resume(cfg.resume_from)
     elif cfg.load_from:
         runner.load_checkpoint(cfg.load_from)
+    runner.model.module.pts_bbox_head.seg_decoder.init_weights()
     runner.run(data_loaders, cfg.workflow)
+
 

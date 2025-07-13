@@ -29,7 +29,7 @@ cams = ['CAM_FRONT',
  'CAM_FRONT_LEFT']
 
 
-pred_seg_path = '/home/binze/work_code/BEVFormer/visual_small_seg_det'
+pred_seg_path = '/home/haisen/BEVFormer_segmentation_detection/visual_small_seg_det'
 
 det_grid_conf = {
     'xbound': [-51.2, 51.2, 0.68],

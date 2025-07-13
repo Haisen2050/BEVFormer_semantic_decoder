@@ -1,0 +1,13 @@
+visual_small_seg_det/
+
+*.pyc
+
+*.cpython-38.pyc
+
+*.pth
+
+*.log
+
+.vscode/
+
+work_dirs/

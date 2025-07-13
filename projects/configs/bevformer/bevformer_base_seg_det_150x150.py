@@ -6,6 +6,13 @@ _base_ = [
 plugin = True
 plugin_dir = 'projects/mmdet3d_plugin/'
 
+custom_hooks = [
+    dict(
+        type='FreezeAllButSegHead',
+        frozen_modules=['img_backbone', 'img_neck', 'pts_bbox_head.transformer', 'pts_bbox_head.cls_branches', 'pts_bbox_head.reg_branches', 'pts_bbox_head.bev_embedding', 'pts_bbox_head.query_embedding']  # Freeze image backbone, neck, transformer and branche
+    )
+]
+
 # If point cloud range is changed, the models should also change their point
 # cloud range accordingly
 point_cloud_range = [-51.2, -51.2, -5.0, 51.2, 51.2, 3.0]
@@ -90,7 +97,7 @@ model = dict(
         det_grid_conf=det_grid_conf,
         map_grid_conf=map_grid_conf,
         seg_encoder=dict(
-            type='SegEncode',
+            type='FPN3',
             inC=256,
             outC=4),
         loss_seg=dict(
@@ -233,7 +240,7 @@ data = dict(
     train=dict(
         type=dataset_type,
         data_root=data_root,
-        ann_file=data_root + 'nuscenes_infos_temporal_train.pkl',
+        ann_file=data_root + 'nuscenes_infos_temporal_train_small.pkl',
         pipeline=train_pipeline,
         classes=class_names,
         modality=input_modality,
@@ -248,13 +255,13 @@ data = dict(
     val=dict(type=dataset_type,
              data_root=data_root,
              grid_conf=grid_conf,
-             ann_file=data_root + 'nuscenes_infos_temporal_val.pkl',
+             ann_file=data_root + 'nuscenes_infos_temporal_val_small.pkl',
              pipeline=test_pipeline,  bev_size=(bev_h_, bev_w_),
              classes=class_names, modality=input_modality, samples_per_gpu=1),
     test=dict(type=dataset_type,
               grid_conf=grid_conf,
               data_root=data_root,
-              ann_file=data_root + 'nuscenes_infos_temporal_val.pkl',
+              ann_file=data_root + 'nuscenes_infos_temporal_val_small.pkl',
               pipeline=test_pipeline, bev_size=(bev_h_, bev_w_),
               classes=class_names, modality=input_modality),
     shuffler_sampler=dict(type='DistributedGroupSampler'),
@@ -282,7 +289,8 @@ total_epochs = 24
 evaluation = dict(interval=1, pipeline=test_pipeline)
 
 runner = dict(type='EpochBasedRunner', max_epochs=total_epochs)
-load_from = 'ckpts/r101_dcn_fcos3d_pretrain.pth'
+#load_from = 'ckpts/r101_dcn_fcos3d_pretrain.pth'
+load_from = 'ckpts/bevformer_base_seg_det_150.pth'
 #load_from = '/root/work_code/BEVFormer/work_dirs/bevformer_base_seg_det/epoch_21.pth'
 log_config = dict(
     interval=50,
@@ -292,3 +300,4 @@ log_config = dict(
     ])
 
 checkpoint_config = dict(interval=1)
+fp16 = dict(loss_scale='dynamic')

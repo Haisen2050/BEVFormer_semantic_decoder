@@ -257,8 +257,18 @@ def load_gt(nusc: NuScenes, eval_split: str, box_cls, verbose: bool = False):
 
     if verbose:
         print('Loading annotations for {} split from nuScenes version: {}'.format(eval_split, nusc.version))
+    sample_tokens_all = []
     # Read out all sample_tokens in DB.
-    sample_tokens_all = [s['token'] for s in nusc.sample]
+    if False:
+        sample_tokens_all = [s['token'] for s in nusc.sample]
+    else:
+        import pickle, os
+        ANN = '/home/haisen/BEVFormer_segmentation_detection/data/nuscenes/nuscenes_infos_temporal_val_small.pkl'
+        assert os.path.exists(ANN), f"Pickle not found: {ANN}"
+        data = pickle.load(open(ANN, 'rb'))
+        # data['infos'] is a list of sample‐dicts; each dict’s frame token is under 'token'
+        info_list = data.get('infos', [])
+        sample_tokens_all = [entry['token'] for entry in info_list]
     assert len(sample_tokens_all) > 0, "Error: Database has no samples!"
 
     # Only keep samples from this split.

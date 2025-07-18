@@ -84,7 +84,7 @@ In order to optimize the semantic decoder desgin, we will address the following 
 
 | Question                                                                 | ✅ Finding |
 |--------------------------------------------------------------------------|------------|
-| Does a simple MLP suffice as a BEV decoder?                              | No. mIoU varies between 27% and 40% |
+| Does a simple MLP suffice as a BEV decoder?                              | No. mIoU varies between a simple MLP at 22% and a deep Unet at 40% |
 | How much do skip connections / multi-scale designs help?                 | Deeper skip connections / multi-scale desgin improve the performance |
 | Are convolutional decoders like U-Net still the best choice?             | Yes, so far Unet is the best netwok in the CNN architecture. |
 | Can attention-based decoders outperform U-Net in this setting?           | Under exploration (e.g., SegFormer-style decoders). |
@@ -103,13 +103,65 @@ In order to optimize the semantic decoder desgin, we will address the following 
 ---
 
 
-## Decoder Performance Overview
+## Semantic Decoder Evaluation
 
-The chart below summarizes the **mean IoU (mIoU)** achieved by different decoder architectures evaluated in this project:
+We evaluated a range of semantic decoder architectures on three dimensions:
 
-![Decoder mIoU Comparison](./all_decoders_miou.png)
+1. **Segmentation quality** (mIoU over epochs)  
+2. **Model size** (trainable parameter count)  
+3. **Inference speed** (FPS, ms)
 
 ---
+
+### 1. mIoU Evaluation
+
+Each decoder was trained under the same BEVFormer-based pipeline using identical BEV feature maps. The plot below shows validation **mIoU over training epochs**, sorted by peak mIoU.
+
+<div align="center">
+  <img src="./model_eval/eval_results/semantic_decoder_miou.png" width="600"/>
+</div>
+
+This helps identify which architectures converge faster and reach higher segmentation accuracy.
+
+---
+
+### 2. Model Size Evaluation
+
+We benchmarked the **number of trainable parameters** in each decoder:
+
+| Decoder Architecture     | Trainable Parameters |
+|--------------------------|----------------------|
+| FPN1                     | 0.05 M               |
+| FPN2                     | 0.11 M               |
+| Conv1Linear1             | 0.59 M               |
+| UNet2Down1Up             | 1.62 M               |
+| DeepLabV3Plus            | 2.82 M               |
+| UNet3Down2Up             | 5.20 M               |
+
+Decoders like FPN1 and FPN2 offer extremely compact architectures, making them ideal for low-resource environments.
+
+A visual comparison is also available:
+
+<div align="center">
+  <img src="./model_eval/eval_results/semantic_decoder_model_size.png" width="500"/>
+</div>
+
+---
+
+### 3. Inference Speed Evaluation
+
+We measured average inference latency (batch size = 1, input: 256×128×128) on a single GPU.
+
+| Decoder                 | Avg Time (ms) | FPS    |
+|-------------------------|---------------|--------|
+| FPN1                    | 0.59          | 1697.56|
+| FPN2                    | 0.59          | 1683.03|
+| DeepLabV3Plus           | 1.02          | 984.68 |
+| UNet2Down1Up            | 1.24          | 809.27 |
+| UNet3Down2Up            | 1.29          | 772.57 |
+| Conv1Linear1            | 1.31          | 766.20 |
+
+Even larger decoders like UNet3Down2Up achieve strong throughput, highlighting the efficiency of modern GPU execution.
 
 ## Project Structure (Tentative)
 
@@ -123,31 +175,6 @@ bev_decoder_eval/
 └── README.md          # Project description and documentation
 ```
 ---
-
-
-## Limitations & Caveats
-
-### 1. Diminishing Returns
-- Decoder changes may only yield **<1–2% mIoU improvement**.
-- Poor-quality BEV features can't be saved by any decoder.
-
-### 2. Context Matters
-- The decoder only shines when **framed around constraints**:
-  - Edge performance
-  - Sparse sensor setups
-  - Real-time streaming or robustness
-
-> This project frames decoder design as a **performance bottleneck** in edge-oriented AD systems.
-
----
-
-## Future Directions
-
-- Test on **sparser sensor configurations** (e.g. fewer cameras).
-- Study **online or adaptive decoding** strategies.
-- Profile decoders under **varying resolution constraints**.
----
-
 
 ## Acknowledgement
 This project references code libraries such as BEVerse, OpenMMLab, BEVFormer_segmentation_detection, BEVDet, HDMapNet, etc. 

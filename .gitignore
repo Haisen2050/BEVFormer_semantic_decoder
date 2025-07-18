@@ -11,3 +11,12 @@ visual_small_seg_det/
 .vscode/
 
 work_dirs/
+
+*.json
+
+=1.0.0
+
+data
+
+model_eval/eval_results/model_debug_visu/
+model_eval/eval_results/model_debug_visu_combined/

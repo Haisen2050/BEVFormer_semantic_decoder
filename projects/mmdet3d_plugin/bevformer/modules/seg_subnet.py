@@ -229,21 +229,20 @@ class UNet4Down3Up(nn.Module):
         return self.final_up(seg)  # → [B,outC,200,400]
 
 @SEG_ENCODER.register_module()
-class ConvDecoder(nn.Module):
+class Conv1Linear1(nn.Module):
 
     def __init__(self, inC, outC):
-        super(ConvDecoder, self).__init__()
+        super(Conv1Linear1, self).__init__()
         self.seg_head = nn.Sequential(
             nn.Conv2d(inC, inC, kernel_size=3, padding=1),
             nn.ReLU(inplace=True),
             nn.Conv2d(inC, outC , kernel_size=1))
 
     def forward(self, x):
-
         return self.seg_head(x)
     
 @SEG_ENCODER.register_module()
-class MLP(nn.Module):
+class Linear2(nn.Module):
 
     def __init__(self, inC, outC, hidden_dim=None):
         """
@@ -251,7 +250,7 @@ class MLP(nn.Module):
         outC: number of output (semantic) channels / classes
         hidden_dim: internal MLP width (defaults to inC if None)
         """
-        super(MLP, self).__init__()
+        super(Linear2, self).__init__()
         hidden_dim = hidden_dim or inC
         self.mlp = nn.Sequential(
             nn.Linear(inC, hidden_dim),

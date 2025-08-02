@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from torchvision.models.resnet import resnet18
+from torchvision.models.resnet import resnet18, resnet50
 from ..modules.builder import SEG_ENCODER
 
 from mmcv.runner import BaseModule
@@ -32,42 +32,42 @@ class Up(nn.Module):
         return self.conv(x1)
 
 # ----------------------------
-# UNet2Down1Up
+# UNet3Res18
 # ----------------------------
 @SEG_ENCODER.register_module()
-class UNet2Down1Up(nn.Module):
+class UNet3Res18(nn.Module):
     """
     2 downs → 1 up:
       downs: conv1(stride2) → H/2, layer2(stride2) → H/4
       up  : fuse layer2 & layer1 back to H/2 → final conv to H
-    Input: [2,256,200,400]
+    Input: [B,256,200,400]
     """
     def __init__(self, inC, outC):
         super().__init__()
         trunk = resnet18(pretrained=False, zero_init_residual=True)
 
         # --- Encoder (2 downs) ---
-        # conv1: [2,256,200,400] → [2, 64,100,200]
+        # conv1: [B,256,200,400] → [B, 64,100,200]
         self.conv1 = nn.Conv2d(inC,  64, 7, stride=2, padding=3, bias=False)
         self.bn1   = trunk.bn1
         self.relu  = trunk.relu
 
-        # layer1 (no down): [2, 64,100,200] → [2, 64,100,200]
+        # layer1 (no down): [B, 64,100,200] → [B, 64,100,200]
         self.layer1 = trunk.layer1
 
-        # layer2 (2nd down): [2, 64,100,200] → [2,128, 50,100]
+        # layer2 (2nd down): [B, 64,100,200] → [B,128, 50,100]
         self.layer2 = trunk.layer2
 
         # --- Decoder (1 up) ---
         # fuse layer2 (128ch@50×100) with layer1 (64ch@100×200)
         # we upsample layer2 by ×2 → 100×200, concat → 128+64=192ch, output 64ch
-        self.up1 = Up(128 + 64, 64, scale_factor=2)  # → [2,64,100,200]
+        self.up1 = Up(128 + 64, 64, scale_factor=2)  # → [B,64,100,200]
 
         # final 1×1 to map 64 → outC, then upsample to full resolution
-        self.classifier = nn.Conv2d(64, outC, kernel_size=1)  # → [2,outC,100,200]
+        self.classifier = nn.Conv2d(64, outC, kernel_size=1)  # → [B,outC,100,200]
         self.final_up   = nn.Upsample(scale_factor=2,
                                       mode='bilinear',
-                                      align_corners=True)       # → [2,outC,200,400]
+                                      align_corners=True)       # → [B,outC,200,400]
 
         self.init_weights()
 
@@ -84,22 +84,22 @@ class UNet2Down1Up(nn.Module):
                 nn.init.zeros_(m.bias)
 
     def forward(self, x):
-        # x: [2,256,200,400]
-        x0 = self.relu(self.bn1(self.conv1(x)))  # [2, 64,100,200]
-        x1 = self.layer1(x0)                     # [2, 64,100,200]
-        x2 = self.layer2(x1)                     # [2,128, 50,100]
+        # x: [B,256,200,400]
+        x0 = self.relu(self.bn1(self.conv1(x)))  # [B, 64,100,200]
+        x1 = self.layer1(x0)                     # [B, 64,100,200]
+        x2 = self.layer2(x1)                     # [B,128, 50,100]
 
-        y  = self.up1(x2, x1)                    # [2, 64,100,200]
-        y  = self.classifier(y)                  # [2,outC,100,200]
-        return self.final_up(y)                  # [2,outC,200,400]
+        y  = self.up1(x2, x1)                    # [B, 64,100,200]
+        y  = self.classifier(y)                  # [B,outC,100,200]
+        return self.final_up(y)                  # [B,outC,200,400]
 
 # ----------------------------
-# UNet3Down2Up
+# UNet4Res18
 # ----------------------------
 @SEG_ENCODER.register_module()
-class UNet3Down2Up(nn.Module):
+class UNet4Res18(nn.Module):
     def __init__(self, inC, outC):
-        super(UNet3Down2Up, self).__init__()
+        super(UNet4Res18, self).__init__()
         trunk = resnet18(pretrained=False, zero_init_residual=True)
         self.conv1 = nn.Conv2d(inC, 64, kernel_size=7, stride=2, padding=3, bias=False)
         self.bn1 = trunk.bn1
@@ -128,25 +128,25 @@ class UNet3Down2Up(nn.Module):
                 nn.init.ones_(m.weight)
                 nn.init.zeros_(m.bias)
 
-    def forward(self, x): #torch.Size([2, 256, 200, 400])
-        x = self.conv1(x) #torch.Size([2, 64, 200, 400])
+    def forward(self, x): #torch.Size([B, 256, 200, 400])
+        x = self.conv1(x) #torch.Size([B, 64, 200, 400])
         x = self.bn1(x)
         x = self.relu(x)
 
-        x1 = self.layer1(x) #torch.Size([2, 64, 100, 200])
-        x = self.layer2(x1) #torch.Size([2, 128, 50, 100])
-        x2 = self.layer3(x) #torch.Size([2, 256, 25, 50])
+        x1 = self.layer1(x) #torch.Size([B, 64, 100, 200])
+        x = self.layer2(x1) #torch.Size([B, 128, 50, 100])
+        x2 = self.layer3(x) #torch.Size([B, 256, 25, 50])
 
-        x = self.up1(x2, x1) #torch.Size([2, 256, 100, 200])
-        x = self.up2(x) #torch.Size([2, 4, 200, 400]) 语义分割预测特征图
+        x = self.up1(x2, x1) #torch.Size([B, 256, 100, 200])
+        x = self.up2(x) #torch.Size([B, 4, 200, 400]) 语义分割预测特征图
 
         return x
     
 # ----------------------------
-# UNet4Down3Up
+# UNet5Res18
 # ----------------------------
 @SEG_ENCODER.register_module()
-class UNet4Down3Up(nn.Module):
+class UNet5Res18(nn.Module):
     """
     4-down / 3-up U-Net with an inner Up class (same name) that
     does dynamic, perfectly aligned upsamples.
@@ -189,9 +189,9 @@ class UNet4Down3Up(nn.Module):
         self.layer4 = trunk.layer4    # → [B,512, 13, 25]
 
         # Decoder using inner Up
-        self.up1 = UNet4Down3Up.Up(512 + 256, 256)  # fuse x4 & x3 → [B,256,25,50]
-        self.up2 = UNet4Down3Up.Up(256 + 128, 128)  # fuse u1 & x2 → [B,128,50,100]
-        self.up3 = UNet4Down3Up.Up(128 +  64,  64)  # fuse u2 & x1 → [B, 64,100,200]
+        self.up1 = UNet5Res18.Up(512 + 256, 256)  # fuse x4 & x3 → [B,256,25,50]
+        self.up2 = UNet5Res18.Up(256 + 128, 128)  # fuse u1 & x2 → [B,128,50,100]
+        self.up3 = UNet5Res18.Up(128 +  64,  64)  # fuse u2 & x1 → [B, 64,100,200]
 
         # Final head + upsample to full res
         self.classifier = nn.Conv2d(64, outC, kernel_size=1)  # → [B,outC,100,200]
@@ -227,6 +227,117 @@ class UNet4Down3Up(nn.Module):
 
         seg = self.classifier(u3)  # → [B,outC,100,200]
         return self.final_up(seg)  # → [B,outC,200,400]
+    
+@SEG_ENCODER.register_module()
+class UNet5Res50(nn.Module):
+    """
+    4-down / 3-up U-Net using ResNet-50 backbone.
+    Follows original UNet5Res18 design but replaces ResNet-18 with ResNet-50.
+    Input: [B,256,200,400]
+    """
+    class Up(nn.Module):
+        """Inner Up block: two 3×3 conv layers"""
+        def __init__(self, in_ch, out_ch):
+            super().__init__()
+            self.conv = nn.Sequential(
+                nn.Conv2d(in_ch, out_ch, 3, padding=1, bias=False),
+                nn.BatchNorm2d(out_ch),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(out_ch, out_ch, 3, padding=1, bias=False),
+                nn.BatchNorm2d(out_ch),
+                nn.ReLU(inplace=True),
+            )
+        def forward(self, x_low, x_skip):
+            x = F.interpolate(x_low, size=x_skip.shape[2:], mode='bilinear', align_corners=True)
+            x = torch.cat([x_skip, x], dim=1)
+            return self.conv(x)
+
+    def __init__(self, inC, outC):
+        super().__init__()
+        trunk = resnet50(pretrained=False, zero_init_residual=True)
+        # Encoder
+        self.conv1  = nn.Conv2d(inC, 64, 7, stride=2, padding=3, bias=False)  # → [B,64,100,200]
+        self.bn1    = trunk.bn1
+        self.relu   = trunk.relu
+        self.layer1 = trunk.layer1    # → [B,256,100,200]
+        self.layer2 = trunk.layer2    # → [B,512,50,100]
+        self.layer3 = trunk.layer3    # → [B,1024,25,50]
+        self.layer4 = trunk.layer4    # → [B,2048,13,25]
+        # Decoder
+        self.up1 = UNet5Res50.Up(2048 + 1024, 1024)  # → [B,1024,25,50]
+        self.up2 = UNet5Res50.Up(1024 + 512, 512)    # → [B,512,50,100]
+        self.up3 = UNet5Res50.Up(512 + 256, 256)     # → [B,256,100,200]
+        # Final head + upsample
+        self.classifier = nn.Conv2d(256, outC, kernel_size=1)  # → [B,outC,100,200]
+        self.final_up   = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True)  # → [B,outC,200,400]
+        self.init_weights()
+
+    def init_weights(self):
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                nn.init.kaiming_normal_(m.weight, nonlinearity='relu')
+                if m.bias is not None:
+                    nn.init.zeros_(m.bias)
+            elif isinstance(m, (nn.BatchNorm2d, nn.GroupNorm)):
+                nn.init.ones_(m.weight)
+                nn.init.zeros_(m.bias)
+
+    def forward(self, x):
+        # x: [B,256,200,400]
+        x0 = self.relu(self.bn1(self.conv1(x)))   # → [B,64,100,200]
+        x1 = self.layer1(x0)                      # → [B,256,100,200]
+        x2 = self.layer2(x1)                      # → [B,512,50,100]
+        x3 = self.layer3(x2)                      # → [B,1024,25,50]
+        x4 = self.layer4(x3)                      # → [B,2048,13,25]
+
+        u1 = self.up1(x4, x3)                     # → [B,1024,25,50]
+        u2 = self.up2(u1, x2)                     # → [B,512,50,100]
+        u3 = self.up3(u2, x1)                     # → [B,256,100,200]
+
+        seg = self.classifier(u3)                 # → [B,outC,100,200]
+        return self.final_up(seg)                 # → [B,outC,200,400]
+    
+@SEG_ENCODER.register_module()
+class UNet6Res18(UNet5Res18):
+    """
+    Extend UNet5Res18 by adding one extra down/up stage at the deepest level.
+    Only the deepest layer (down0/up4) differs; all other logic inherited.
+    """
+    class Up(UNet5Res18.Up):
+        # reuse same double-conv block
+        pass
+
+    def __init__(self, inC, outC):
+        super().__init__(inC, outC)
+        # Extra down0 stage before conv1
+        self.conv0 = nn.Sequential(
+            nn.Conv2d(inC, 64, 3, stride=2, padding=1, bias=False),  # → [B,64,100,200]
+            nn.BatchNorm2d(64),                                         # → [B,64,100,200]
+            nn.ReLU(inplace=True),                                      # relu
+        )
+        # Override conv1 to take 64→64 (was 256→64 in UNet4)
+        self.conv1 = nn.Conv2d(64, 64, 7, stride=2, padding=3, bias=False)  # → [B,64,50,100]
+        # New deepest Up4: fuse u3 & x0
+        self.up4 = UNet6Res18.Up(64 + 64, 64)     # u3 & x0 → [B,64,100,200]
+
+    def forward(self, x):
+        # x: [B,256,200,400]
+        x0 = self.conv0(x)                          # → [B,64,100,200]
+        # then original conv1 bn1 relu from UNet4 but on x0
+        x1 = self.relu(self.bn1(self.conv1(x0)))    # → [B,64,50,100]
+        x1 = self.layer1(x1)                        # → [B,64,50,100]
+        x2 = self.layer2(x1)                        # → [B,128,25,50]
+        x3 = self.layer3(x2)                        # → [B,256,13,25]
+        x4 = self.layer4(x3)                        # → [B,512,13,25]
+
+        u1 = self.up1(x4, x3)  # → [B,256,25,50]
+        u2 = self.up2(u1, x2)  # → [B,128,50,100]
+        u3 = self.up3(u2, x1)  # → [B,64,100,200]
+        u4 = self.up4(u3, x0)  # → [B,64,100,200]
+
+        seg = self.classifier(u4)                  # → [B,outC,100,200]
+        return self.final_up(seg)                  # → [B,outC,200,400]
+
 
 @SEG_ENCODER.register_module()
 class Conv1Linear1(nn.Module):
@@ -503,6 +614,206 @@ class FPN2(nn.Module):
         x_fused = torch.cat([x1, x2_up], dim=1)        # [B, 2C, H, W]
         x_fused = self.fuse(x_fused)                   # [B, C, H, W]
         return self.head(x_fused)                      # [B, outC, H, W]
+    
+
+#   Input Feature Map
+#       ├── Lateral 1x1 conv (base res)
+#       ├── Downsample (MaxPool)
+#       │    └── Lateral 1x1 conv
+#       └── Upsample back to base res
+#       ↓
+#   Concatenate both branches
+#       ↓
+#   Fuse with conv → BN → ReLU
+#       ↓
+#   Final 1x1 conv → output logits
+@SEG_ENCODER.register_module()
+class FPN2_256(nn.Module):
+    """
+    FPN-style decoder with 2-layer depth:
+    - One base resolution (H, W)
+    - One downsampled stage (H/2, W/2), upsampled and fused back
+    """
+    def __init__(self, inC, outC, fuse_channels=256):
+        super().__init__()
+        # Stage 1: base resolution lateral
+        self.lateral1 = nn.Conv2d(inC, fuse_channels, kernel_size=1)
+
+        # Stage 2: downsample + lateral
+        self.downsample = nn.MaxPool2d(kernel_size=2, stride=2)
+        self.lateral2 = nn.Conv2d(inC, fuse_channels, kernel_size=1)
+        self.upconv2 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False)
+
+        # Fuse both stages
+        self.fuse = nn.Sequential(
+            nn.Conv2d(fuse_channels * 2, fuse_channels, kernel_size=3, padding=1, bias=False),
+            nn.BatchNorm2d(fuse_channels),
+            nn.ReLU(inplace=True)
+        )
+
+        # Output head
+        self.head = nn.Conv2d(fuse_channels, outC, kernel_size=1)
+
+        self.init_weights()
+
+    def init_weights(self):
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+                if m.bias is not None:
+                    nn.init.zeros_(m.bias)
+            elif isinstance(m, (nn.BatchNorm2d, nn.GroupNorm)):
+                nn.init.ones_(m.weight)
+                nn.init.zeros_(m.bias)
+
+    def forward(self, feat):
+        """
+        Args:
+            feat (Tensor): [B, inC, H, W]
+        Returns:
+            Tensor: [B, outC, H, W]
+        """
+        x1 = self.lateral1(feat)                        # [B, C, H, W]
+        x2_down = self.downsample(feat)                # [B, C, H/2, W/2]
+        x2 = self.lateral2(x2_down)                    # [B, C, H/2, W/2]
+        x2_up = self.upconv2(x2)                       # [B, C, H, W]
+        x_fused = torch.cat([x1, x2_up], dim=1)        # [B, 2C, H, W]
+        x_fused = self.fuse(x_fused)                   # [B, C, H, W]
+        return self.head(x_fused)                      # [B, outC, H, W]
+
+
+@SEG_ENCODER.register_module()
+class FPN3(nn.Module):
+    """
+    FPN-style decoder with 3-layer depth:
+    - Base resolution (H, W)
+    - Downsampled (H/2, W/2)
+    - Further downsampled (H/4, W/4)
+    """
+    def __init__(self, inC, outC, fuse_channels=64):
+        super().__init__()
+        # Stage 1: base resolution lateral
+        self.lateral1 = nn.Conv2d(inC, fuse_channels, kernel_size=1)
+
+        # Stage 2: downsample + lateral + upsample
+        self.downsample = nn.MaxPool2d(kernel_size=2, stride=2)
+        self.lateral2 = nn.Conv2d(inC, fuse_channels, kernel_size=1)
+        self.upconv2 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False)
+
+        # Stage 3: further downsample + lateral + upsample to base
+        # reuse downsample twice
+        self.lateral3 = nn.Conv2d(inC, fuse_channels, kernel_size=1)
+        self.upconv3 = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=False)
+
+        # Fuse all three stages
+        self.fuse = nn.Sequential(
+            nn.Conv2d(fuse_channels * 3, fuse_channels, kernel_size=3, padding=1, bias=False),
+            nn.BatchNorm2d(fuse_channels),
+            nn.ReLU(inplace=True)
+        )
+
+        # Output head
+        self.head = nn.Conv2d(fuse_channels, outC, kernel_size=1)
+
+        self.init_weights()
+
+    def init_weights(self):
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+                if m.bias is not None:
+                    nn.init.zeros_(m.bias)
+            elif isinstance(m, (nn.BatchNorm2d, nn.GroupNorm)):
+                nn.init.ones_(m.weight)
+                nn.init.zeros_(m.bias)
+
+    def forward(self, feat):
+        # Base resolution
+        x1 = self.lateral1(feat)                # [B, C, H, W]
+        # Stage 2
+        x2_down = self.downsample(feat)         # [B, C, H/2, W/2]
+        x2 = self.lateral2(x2_down)             # [B, C, H/2, W/2]
+        x2_up = self.upconv2(x2)                # [B, C, H, W]
+        # Stage 3
+        x3_down = self.downsample(x2_down)      # [B, C, H/4, W/4]
+        x3 = self.lateral3(x3_down)             # [B, C, H/4, W/4]
+        x3_up = self.upconv3(x3)                # [B, C, H, W]
+        # Fuse and head
+        x_cat = torch.cat([x1, x2_up, x3_up], dim=1)  # [B, 3C, H, W]
+        x_fused = self.fuse(x_cat)                    # [B, C, H, W]
+        return self.head(x_fused)                    # [B, outC, H, W]
+
+
+@SEG_ENCODER.register_module()
+class FPN4(nn.Module):
+    """
+    FPN-style decoder with 4-layer depth:
+    - Base resolution (H, W)
+    - Downsampled (H/2, W/2)
+    - Further downsampled (H/4, W/4)
+    - Further downsampled (H/8, W/8)
+    """
+    def __init__(self, inC, outC, fuse_channels=64):
+        super().__init__()
+        # Stage 1: base resolution lateral
+        self.lateral1 = nn.Conv2d(inC, fuse_channels, kernel_size=1)
+
+        # Common downsample
+        self.downsample = nn.MaxPool2d(kernel_size=2, stride=2)
+
+        # Stage 2: lateral + upsample
+        self.lateral2 = nn.Conv2d(inC, fuse_channels, kernel_size=1)
+        self.upconv2 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False)
+
+        # Stage 3: lateral + upsample
+        self.lateral3 = nn.Conv2d(inC, fuse_channels, kernel_size=1)
+        self.upconv3 = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=False)
+
+        # Stage 4: lateral + upsample
+        self.lateral4 = nn.Conv2d(inC, fuse_channels, kernel_size=1)
+        self.upconv4 = nn.Upsample(scale_factor=8, mode='bilinear', align_corners=False)
+
+        # Fuse all four stages
+        self.fuse = nn.Sequential(
+            nn.Conv2d(fuse_channels * 4, fuse_channels, kernel_size=3, padding=1, bias=False),
+            nn.BatchNorm2d(fuse_channels),
+            nn.ReLU(inplace=True)
+        )
+
+        # Output head
+        self.head = nn.Conv2d(fuse_channels, outC, kernel_size=1)
+
+        self.init_weights()
+
+    def init_weights(self):
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+                if m.bias is not None:
+                    nn.init.zeros_(m.bias)
+            elif isinstance(m, (nn.BatchNorm2d, nn.GroupNorm)):
+                nn.init.ones_(m.weight)
+                nn.init.zeros_(m.bias)
+
+    def forward(self, feat):
+        # Stage 1
+        x1 = self.lateral1(feat)
+        # Stage 2
+        x2_down = self.downsample(feat)
+        x2 = self.lateral2(x2_down)
+        x2_up = self.upconv2(x2)
+        # Stage 3
+        x3_down = self.downsample(x2_down)
+        x3 = self.lateral3(x3_down)
+        x3_up = self.upconv3(x3)
+        # Stage 4
+        x4_down = self.downsample(x3_down)
+        x4 = self.lateral4(x4_down)
+        x4_up = self.upconv4(x4)
+        # Fuse and head
+        x_cat = torch.cat([x1, x2_up, x3_up, x4_up], dim=1)
+        x_fused = self.fuse(x_cat)
+        return self.head(x_fused)
 
 # ----------------------------
 #  DeepLabV3+ Style Decoder (ASPP + Conv Head)

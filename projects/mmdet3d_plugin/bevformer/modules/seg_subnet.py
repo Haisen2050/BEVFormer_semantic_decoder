@@ -340,10 +340,10 @@ class UNet6Res18(UNet5Res18):
 
 
 @SEG_ENCODER.register_module()
-class Conv1Linear1(nn.Module):
+class Conv2(nn.Module):
 
     def __init__(self, inC, outC):
-        super(Conv1Linear1, self).__init__()
+        super(Conv2, self).__init__()
         self.seg_head = nn.Sequential(
             nn.Conv2d(inC, inC, kernel_size=3, padding=1),
             nn.ReLU(inplace=True),
@@ -562,7 +562,7 @@ class FPN1(nn.Module):
 #       ↓
 #   Final 1x1 conv → output logits
 @SEG_ENCODER.register_module()
-class FPN2(nn.Module):
+class FPN2Conv(nn.Module):
     """
     FPN-style decoder with 2-layer depth:
     - One base resolution (H, W)
@@ -615,75 +615,8 @@ class FPN2(nn.Module):
         x_fused = self.fuse(x_fused)                   # [B, C, H, W]
         return self.head(x_fused)                      # [B, outC, H, W]
     
-
-#   Input Feature Map
-#       ├── Lateral 1x1 conv (base res)
-#       ├── Downsample (MaxPool)
-#       │    └── Lateral 1x1 conv
-#       └── Upsample back to base res
-#       ↓
-#   Concatenate both branches
-#       ↓
-#   Fuse with conv → BN → ReLU
-#       ↓
-#   Final 1x1 conv → output logits
 @SEG_ENCODER.register_module()
-class FPN2_256(nn.Module):
-    """
-    FPN-style decoder with 2-layer depth:
-    - One base resolution (H, W)
-    - One downsampled stage (H/2, W/2), upsampled and fused back
-    """
-    def __init__(self, inC, outC, fuse_channels=256):
-        super().__init__()
-        # Stage 1: base resolution lateral
-        self.lateral1 = nn.Conv2d(inC, fuse_channels, kernel_size=1)
-
-        # Stage 2: downsample + lateral
-        self.downsample = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.lateral2 = nn.Conv2d(inC, fuse_channels, kernel_size=1)
-        self.upconv2 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False)
-
-        # Fuse both stages
-        self.fuse = nn.Sequential(
-            nn.Conv2d(fuse_channels * 2, fuse_channels, kernel_size=3, padding=1, bias=False),
-            nn.BatchNorm2d(fuse_channels),
-            nn.ReLU(inplace=True)
-        )
-
-        # Output head
-        self.head = nn.Conv2d(fuse_channels, outC, kernel_size=1)
-
-        self.init_weights()
-
-    def init_weights(self):
-        for m in self.modules():
-            if isinstance(m, nn.Conv2d):
-                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
-                if m.bias is not None:
-                    nn.init.zeros_(m.bias)
-            elif isinstance(m, (nn.BatchNorm2d, nn.GroupNorm)):
-                nn.init.ones_(m.weight)
-                nn.init.zeros_(m.bias)
-
-    def forward(self, feat):
-        """
-        Args:
-            feat (Tensor): [B, inC, H, W]
-        Returns:
-            Tensor: [B, outC, H, W]
-        """
-        x1 = self.lateral1(feat)                        # [B, C, H, W]
-        x2_down = self.downsample(feat)                # [B, C, H/2, W/2]
-        x2 = self.lateral2(x2_down)                    # [B, C, H/2, W/2]
-        x2_up = self.upconv2(x2)                       # [B, C, H, W]
-        x_fused = torch.cat([x1, x2_up], dim=1)        # [B, 2C, H, W]
-        x_fused = self.fuse(x_fused)                   # [B, C, H, W]
-        return self.head(x_fused)                      # [B, outC, H, W]
-
-
-@SEG_ENCODER.register_module()
-class FPN3(nn.Module):
+class FPN3Conv(nn.Module):
     """
     FPN-style decoder with 3-layer depth:
     - Base resolution (H, W)
@@ -742,88 +675,6 @@ class FPN3(nn.Module):
         x_cat = torch.cat([x1, x2_up, x3_up], dim=1)  # [B, 3C, H, W]
         x_fused = self.fuse(x_cat)                    # [B, C, H, W]
         return self.head(x_fused)                    # [B, outC, H, W]
-
-
-@SEG_ENCODER.register_module()
-class FPN4(nn.Module):
-    """
-    FPN-style decoder with 4-layer depth.
-    Input feat: [B, inC, 200, 400]
-    FPN-style decoder with 4-layer depth.
-    Input feat: [B, inC, 200, 400]
-    """
-    def __init__(self, inC, outC, fuse_channels=64):
-        super().__init__()
-        # → [B, fuse_channels, 200,400]
-        # → [B, fuse_channels, 200,400]
-        self.lateral1 = nn.Conv2d(inC, fuse_channels, kernel_size=1)
-
-        self.downsample = nn.MaxPool2d(2, 2)
-        self.downsample = nn.MaxPool2d(2, 2)
-
-        # Stage2: [B,inC,100,200] → [B,fuse_channels,100,200] → up → [B,fuse_channels,200,400]
-        # Stage2: [B,inC,100,200] → [B,fuse_channels,100,200] → up → [B,fuse_channels,200,400]
-        self.lateral2 = nn.Conv2d(inC, fuse_channels, kernel_size=1)
-        self.upconv2  = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False)
-        self.upconv2  = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False)
-
-        # Stage3: [B,inC,50,100] → [B,C,50,100] → up ×4 → [B,C,200,400]
-        # Stage3: [B,inC,50,100] → [B,C,50,100] → up ×4 → [B,C,200,400]
-        self.lateral3 = nn.Conv2d(inC, fuse_channels, kernel_size=1)
-        self.upconv3  = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=False)
-        self.upconv3  = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=False)
-
-        # Stage4: [B,inC,25,50] → [B,C,25,50] → up ×8 → [B,C,200,400]
-        # Stage4: [B,inC,25,50] → [B,C,25,50] → up ×8 → [B,C,200,400]
-        self.lateral4 = nn.Conv2d(inC, fuse_channels, kernel_size=1)
-        self.upconv4  = nn.Upsample(scale_factor=8, mode='bilinear', align_corners=False)
-        self.upconv4  = nn.Upsample(scale_factor=8, mode='bilinear', align_corners=False)
-
-        # fuse: concat 4 × features → [B,4*fuse_channels,200,400] → fuse → [B,fuse_channels,200,400]
-        self.fuse = nn.Sequential(
-            nn.Conv2d(fuse_channels * 4, fuse_channels, 3, padding=1, bias=False),
-            nn.BatchNorm2d(fuse_channels),
-            nn.ReLU(inplace=True)
-        )
-
-        # head → [B,outC,200,400]
-        self.head = nn.Conv2d(fuse_channels, outC, kernel_size=1)
-
-        # initialize weights
-        self.init_weights()
-
-    def init_weights(self):
-        """Initialize Conv2d and Norm layers"""
-        for m in self.modules():
-            if isinstance(m, nn.Conv2d):
-                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
-                if m.bias is not None:
-                    nn.init.zeros_(m.bias)
-            elif isinstance(m, (nn.BatchNorm2d, nn.GroupNorm)):
-                nn.init.ones_(m.weight)
-                nn.init.zeros_(m.bias)
-
-    def forward(self, feat):
-        # feat: [B, inC, 200, 400]
-
-        x1      = self.lateral1(feat)               # [B, C, 200,400]
-
-        x2_down = self.downsample(feat)              # [B,inC,100,200]
-        x2      = self.lateral2(x2_down)             # [B, C,100,200]
-        x2_up   = self.upconv2(x2)                   # [B, C,200,400]
-
-        x3_down = self.downsample(x2_down)           # [B,inC,50,100]
-        x3      = self.lateral3(x3_down)             # [B, C,50,100]
-        x3_up   = self.upconv3(x3)                   # [B, C,200,400]
-
-        x4_down = self.downsample(x3_down)           # [B,inC,25,50]
-        x4      = self.lateral4(x4_down)             # [B, C,25,50]
-        x4_up   = self.upconv4(x4)                   # [B, C,200,400]
-
-        x_cat   = torch.cat([x1, x2_up, x3_up, x4_up], dim=1)  # [B,4C,200,400]
-        x_fuse  = self.fuse(x_cat)                             # [B, C,200,400]
-        out     = self.head(x_fuse)                            # [B,outC,200,400]
-        return out
 
 
 # ----------------------------
@@ -1005,7 +856,7 @@ class FPN(nn.Module):
         return self.head(x)
 
 @SEG_ENCODER.register_module()
-class FPN7(FPN):
+class FPN7Conv(FPN):
     """
     FPN-style decoder fixed at 7 levels (resolutions: H, H/2, H/4, H/8, H/16, H/32, H/64).
     Each level is upsampled back to the original (H, W) and fused.
@@ -1013,6 +864,9 @@ class FPN7(FPN):
     def __init__(self, inC, outC, fuse_channels=64):
         # instantiate base FPN with levels=7
         super().__init__(inC, outC, fuse_channels, levels=7)
+
+
+
 # ----------------------------
 # FPN4Res18 (3-level pyramid: C2, C3, C4)
 # ----------------------------

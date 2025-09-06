@@ -2,416 +2,506 @@
 [Debug] Using device: cuda:0
 [Debug] Looking for checkpoints in work_dirs/bevformer_base_seg_det_150x150
 [Debug] Directory exists: True
-[Debug] Files: ['20250804_171806.log.json', 'SegDecoder_UNet5Res50_20250801.pth', '20250802_210303.log', 'SegDecoder_UNet4Res18_20250709.log', 'epoch_7.pth', '20250802_191433.log', 'UNet4Down3Up_20250721.log', '20250802_121651.log.json', 'tf_logs', '20250804_161702.log.json', '20250804_171121.log.json', 'bevformer_base_seg_det_150x150.py', 'epoch_12.pth', 'SegDecoder_UNet5Res50_20250801.log', '20250804_171121.log', '20250804_172440.log', 'SegDecoder_DeepLabV3Plus_20250716.pth', 'epoch_16.pth', '20250802_191812.log', '20250804_125116.log', 'SegDecoder_UNet4Res18_20250709.pth', '20250802_212232.log', 'SegDecoder_UNet6Res18_20250730.log', 'epoch_8.pth', 'epoch_11.pth', 'SegDecoder_FPN2_20250724.log', '20250804_125116.log.json', '20250803_220851.log.json', 'MLP_20250713.log', 'epoch_17.pth', 'SegDecoder_Conv1Linear1_20250704.pth', '20250802_153207.log', 'MLP_20250713.pth', 'epoch_10.pth', '20250802_205444.log.json', '20250802_211133.log', 'SegDecoder_FPN2_256_20250727.pth', 'UNet_20250709.log', 'epoch_21.pth', 'epoch_15.pth', 'SegDecoder_FPN2_256_20250727.log', '20250804_161702.log', '20250804_162650.log.json', 'epoch_14.pth', 'SegDecoder_UNet6Res18_20250730.pth', 'SegDecoder_PanopticSegFormerDecoder.log', '20250801_000229.log', '20250802_220016.log.json', '20250802_121651.log', '20250802_205444.log', 'FPN2_20250717.log', 'SegDecoder_FPN2_20250724.pth', 'SegDecoder_DeepLabV3Plus_20250716.log', 'epoch_2.pth', 'SegDecoder_UNet5Res18_20250725.pth', '20250804_171806.log', '20250803_220851.log', 'epoch_22.pth', '20250802_220016.log', '20250804_130047.log', 'SegDecoder_ConvDecoder_20250704.log', '20250804_172440.log.json', '20250804_162650.log', 'latest.pth', 'SegDecoder_UNet3Res18_20250722.log', 'epoch_4.pth', 'FPN1_20250713.pth', '20250802_184510.log', 'SegDecoder_UNet5Res18_20250725.log', '20250802_212232.log.json', 'epoch_9.pth', 'epoch_23.pth', '20250802_191812.log.json', '20250801_001013.log', 'epoch_13.pth', 'epoch_5.pth', 'epoch_18.pth', 'SegDecoder_Conv1Linear1_20250704.log', '20250802_211133.log.json', 'epoch_20.pth', 'epoch_3.pth', 'epoch_19.pth', 'epoch_1.pth', '20250801_001050.log.json', 'FPN2_20250717.pth', '20250802_153207.log.json', 'PanopticSegFormerDecoder.pth', 'epoch_6.pth', '20250802_184510.log.json', 'FPN1_20250713.log', 'epoch_25.pth', '20250801_000229.log.json', 'SegDecoder_UNet3Res18_20250722.pth']
-[Debug] Found decoders: ['Conv1Linear1', 'DeepLabV3Plus', 'FPN2', 'FPN2_256', 'UNet3Res18', 'UNet4Res18', 'UNet5Res18', 'UNet5Res50', 'UNet6Res18']
+[Debug] Files: ['SegDecoder_FPN3Conv_20250806.log', '20250810_231704.log.json', '20250903_234909.log.json', 'SegDecoder_UNet5Res50_20250801.pth', '20250903_210015.log.json', 'FPN2_256_20250727.log', '20250807_133315.log', 'SegDecoder_UNet4Res18_20250709.log', 'epoch_7.pth', '20250829_213651.log', '20250829_223841.log', '20250813_133543.log.json', 'UNet4Down3Up_20250721.log', '20250810_232344.log.json', 'tf_logs', '20250829_162206.log', '20250829_220652.log.json', 'FPN5Res18_20250811.pth', '20250810_232344.log', 'bevformer_base_seg_det_150x150.py', '20250903_234909.log', 'epoch_12.pth', 'SegDecoder_UNet5Res50_20250801.log', '20250903_162553.log', '20250829_225737.log', 'Dep_SegDecoder_FPN5Res18_20250811.log', 'SegDecoder_DeepLabV3Plus_20250716.pth', 'epoch_16.pth', '20250807_111246.log', '20250903_162553.log.json', '20250902_233430.log', '20250810_214041.log.json', 'FPN1_20250713.log.log', '20250829_162206.log.json', 'SegDecoder_UNet4Res18_20250709.pth', '20250903_210015.log', '20250829_212634.log.json', 'SegDecoder_UNet6Res18_20250730.log', 'epoch_8.pth', 'SegDecoder_FPN2Conv_20250724.pth', 'epoch_11.pth', 'SegDecoder_FPN2Conv_20250724.log', '20250831_100605.log', '20250903_164559.log.json', '20250810_231021.log.json', '20250902_224728.log', '20250903_233443.log', '20250803_220851.log.json', '20250807_111357.log', 'MLP_20250713.log', 'SegDecoder_FPN5Res18_20250830.log', 'epoch_17.pth', '20250812_092814.log', '20250806_090114.log.json', 'MLP_20250713.pth', '20250829_221123.log', 'epoch_10.pth', '20250810_100326.log.json', '20250810_211247.log.json', 'UNet_20250709.log', 'SegDecoder_Conv2_20250704.log', '20250813_092000.log', 'epoch_21.pth', 'epoch_15.pth', '20250829_191213.log', '20250813_092000.log.json', '20250902_233430.log.json', 'epoch_14.pth', '20250829_225846.log.json', 'SegDecoder_UNet6Res18_20250730.pth', '20250810_211247.log', '20250829_231616.log', '20250903_164559.log', '20250829_213748.log', '20250829_191241.log.json', '20250829_223841.log.json', '20250829_191241.log', 'FPN2_20250717.log', '20250829_212634.log', '20250810_210531.log.json', 'SegDecoder_DeepLabV3Plus_20250716.log', 'epoch_2.pth', 'SegDecoder_UNet5Res18_20250725.pth', '20250813_133543.log', '20250810_210531.log', '20250812_093005.log', '20250829_180031.log', '20250803_220851.log', 'epoch_22.pth', '20250829_192743.log', '20250810_214041.log', '20250829_192743.log.json', '20250830_232432.log', '.eval_hook', '20250810_231704.log', '20250902_224728.log.json', '20250810_231021.log', '20250831_100605.log.json', 'SegDecoder_FPN3Conv_20250806.pth', 'Dep_SegDecoder_FPN5Res18_20250819.pth', 'latest.pth', '20250829_220652.log', 'SegDecoder_UNet3Res18_20250722.log', 'UNet_20250709.log.log', '20250811_091750.log.json', 'SegDecoder_FPN7Conv_20250807.log', '20250829_221123.log.json', 'epoch_4.pth', 'FPN1_20250713.pth', '20250807_111357.log.json', 'SegDecoder_UNet5Res18_20250725.log', '20250903_224811.log', 'epoch_9.pth', '20250812_093005.log.json', '20250903_222141.log.json', '20250810_100326.log', 'SegDecoder_FPN5Res18_20250830.pth', 'epoch_23.pth', '20250829_180031.log.json', 'ConvDecoder_20250704.log', 'epoch_13.pth', 'epoch_5.pth', '20250903_233443.log.json', 'epoch_18.pth', 'SegDecoder_Conv2_20250704.pth', 'SegDecoder_FPN7Conv_20250807.pth', 'epoch_20.pth', '20250903_222141.log', 'epoch_3.pth', 'epoch_19.pth', '20250811_091750.log', '20250903_220125.log.json', 'epoch_1.pth', 'FPN2_20250717.pth', 'PanopticSegFormerDecoder.pth', '20250829_225846.log', 'epoch_6.pth', '20250811_092354.log.json', 'FPN1_20250713.log', '20250903_220125.log', 'FPN2_256_20250727.pth', '20250807_145529.log.json', '20250903_224811.log.json', '20250830_101934.log.json', 'SegDecoder_UNet3Res18_20250722.pth']
+[Debug] Found decoders: ['Conv2', 'DeepLabV3Plus', 'FPN2Conv', 'FPN3Conv', 'FPN5Res18', 'FPN7Conv', 'UNet3Res18', 'UNet4Res18', 'UNet5Res18', 'UNet5Res50', 'UNet6Res18']
 [Debug] Building data loader
 WARNING!!!!, Only can be used for obtain inference speed!!!!
-[Debug] Loader built: 601 samples, batch size=1, workers=2
-[Debug] Dataset: 601 samples, 601 batches
-[Debug] ---------- Decoder: Conv1Linear1 ----------
+[Debug] Loader built: 600 samples, batch size=1, workers=2
+[Debug] Dataset: 600 samples, 600 batches
+[Debug] ---------- Decoder: Conv2 ----------
 [Debug] Building model
-[Debug] Loading checkpoint: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_Conv1Linear1_20250704.pth
-load checkpoint from local path: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_Conv1Linear1_20250704.pth
-2025-08-05 21:16:35,835 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
-2025-08-05 21:16:35,837 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
-2025-08-05 21:16:35,838 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
-2025-08-05 21:16:35,840 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
-2025-08-05 21:16:35,841 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
-2025-08-05 21:16:35,842 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
-2025-08-05 21:16:35,843 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
-2025-08-05 21:16:35,844 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
-2025-08-05 21:16:35,846 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
-2025-08-05 21:16:35,847 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
-2025-08-05 21:16:35,848 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
-2025-08-05 21:16:35,849 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
-2025-08-05 21:16:35,850 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
-2025-08-05 21:16:35,852 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
-2025-08-05 21:16:35,853 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
-2025-08-05 21:16:35,854 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
-2025-08-05 21:16:35,855 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
-2025-08-05 21:16:35,857 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
-2025-08-05 21:16:35,858 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
-2025-08-05 21:16:35,859 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
-2025-08-05 21:16:35,861 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
-2025-08-05 21:16:35,862 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
-2025-08-05 21:16:35,863 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
-2025-08-05 21:16:35,864 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
-2025-08-05 21:16:35,868 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
-2025-08-05 21:16:35,871 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
+[Debug] Loading checkpoint: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_Conv2_20250704.pth
+load checkpoint from local path: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_Conv2_20250704.pth
+2025-09-05 09:29:05,628 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
+2025-09-05 09:29:05,631 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
+2025-09-05 09:29:05,633 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
+2025-09-05 09:29:05,635 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
+2025-09-05 09:29:05,636 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
+2025-09-05 09:29:05,638 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
+2025-09-05 09:29:05,640 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
+2025-09-05 09:29:05,641 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
+2025-09-05 09:29:05,643 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
+2025-09-05 09:29:05,645 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
+2025-09-05 09:29:05,647 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
+2025-09-05 09:29:05,649 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
+2025-09-05 09:29:05,650 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
+2025-09-05 09:29:05,652 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
+2025-09-05 09:29:05,654 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
+2025-09-05 09:29:05,656 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
+2025-09-05 09:29:05,657 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
+2025-09-05 09:29:05,659 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
+2025-09-05 09:29:05,661 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
+2025-09-05 09:29:05,663 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
+2025-09-05 09:29:05,665 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
+2025-09-05 09:29:05,666 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
+2025-09-05 09:29:05,668 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
+2025-09-05 09:29:05,670 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
+2025-09-05 09:29:05,675 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
+2025-09-05 09:29:05,679 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
 [Debug] Starting measure_speed
 [Debug] Warm-up: first batch keys=['img_metas', 'img', 'semantic_indices']
 [Debug] Completed 10 warm-up iterations
 [Debug] Timing: first batch keys=['img_metas', 'img', 'semantic_indices']
-[Debug] Batch 0 latency: 378.1 ms
-[Debug] Batch 50 latency: 354.0 ms
-[Debug] Batch 100 latency: 356.1 ms
+[Debug] Batch 0 latency: 336.8 ms
+[Debug] Batch 50 latency: 594.4 ms
+[Debug] Batch 100 latency: 594.5 ms
 [Debug] Completed 150 timed iterations
 [Debug] Average latency computed over 150 batches
-[Debug] Decoder-only Batch 0 latency: 3.9 ms
-[Debug] Decoder-only Batch 50 latency: 3.6 ms
-[Debug] Decoder-only Batch 100 latency: 3.7 ms
-[Debug] Decoder-only average latency over 150 batches: 3.8 ms
-Average full-pipeline latency for Conv1Linear1: 361.2 ms/batch
-Average decoder-only latency for Conv1Linear1: 3.8 ms/batch
+[Debug] Decoder-only Batch 0 latency: 3.6 ms
+[Debug] Decoder-only Batch 50 latency: 3.7 ms
+[Debug] Decoder-only Batch 100 latency: 3.6 ms
+[Debug] Decoder-only average latency over 150 batches: 3.6 ms
+Average full-pipeline latency for Conv2: 517.2 ms/batch
+Average decoder-only latency for Conv2: 3.6 ms/batch
 [Debug] ---------- Decoder: DeepLabV3Plus ----------
 [Debug] Building model
 [Debug] Loading checkpoint: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_DeepLabV3Plus_20250716.pth
 load checkpoint from local path: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_DeepLabV3Plus_20250716.pth
-2025-08-05 21:18:47,520 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
-2025-08-05 21:18:47,521 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
-2025-08-05 21:18:47,523 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
-2025-08-05 21:18:47,524 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
-2025-08-05 21:18:47,525 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
-2025-08-05 21:18:47,527 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
-2025-08-05 21:18:47,528 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
-2025-08-05 21:18:47,529 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
-2025-08-05 21:18:47,530 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
-2025-08-05 21:18:47,532 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
-2025-08-05 21:18:47,533 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
-2025-08-05 21:18:47,534 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
-2025-08-05 21:18:47,536 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
-2025-08-05 21:18:47,537 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
-2025-08-05 21:18:47,538 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
-2025-08-05 21:18:47,539 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
-2025-08-05 21:18:47,541 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
-2025-08-05 21:18:47,542 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
-2025-08-05 21:18:47,543 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
-2025-08-05 21:18:47,545 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
-2025-08-05 21:18:47,546 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
-2025-08-05 21:18:47,547 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
-2025-08-05 21:18:47,549 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
-2025-08-05 21:18:47,550 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
-2025-08-05 21:18:47,553 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
-2025-08-05 21:18:47,556 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,434 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,436 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,437 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,438 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,440 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,442 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,444 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,446 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,448 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,450 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,452 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,453 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,455 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,456 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,458 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,459 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,461 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,464 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,466 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,468 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,470 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,471 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,472 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,474 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,478 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
+2025-09-05 09:32:17,482 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
 [Debug] Starting measure_speed
 [Debug] Warm-up: first batch keys=['img_metas', 'img', 'semantic_indices']
 [Debug] Completed 10 warm-up iterations
 [Debug] Timing: first batch keys=['img_metas', 'img', 'semantic_indices']
-[Debug] Batch 0 latency: 393.2 ms
-[Debug] Batch 50 latency: 374.0 ms
-[Debug] Batch 100 latency: 376.5 ms
+[Debug] Batch 0 latency: 545.6 ms
+[Debug] Batch 50 latency: 565.0 ms
+[Debug] Batch 100 latency: 580.4 ms
 [Debug] Completed 150 timed iterations
 [Debug] Average latency computed over 150 batches
-[Debug] Decoder-only Batch 0 latency: 20.5 ms
-[Debug] Decoder-only Batch 50 latency: 20.4 ms
-[Debug] Decoder-only Batch 100 latency: 20.9 ms
-[Debug] Decoder-only average latency over 150 batches: 20.6 ms
-Average full-pipeline latency for DeepLabV3Plus: 381.6 ms/batch
-Average decoder-only latency for DeepLabV3Plus: 20.6 ms/batch
-[Debug] ---------- Decoder: FPN2 ----------
+[Debug] Decoder-only Batch 0 latency: 43.1 ms
+[Debug] Decoder-only Batch 50 latency: 43.0 ms
+[Debug] Decoder-only Batch 100 latency: 43.0 ms
+[Debug] Decoder-only average latency over 150 batches: 33.4 ms
+Average full-pipeline latency for DeepLabV3Plus: 576.4 ms/batch
+Average decoder-only latency for DeepLabV3Plus: 33.4 ms/batch
+[Debug] ---------- Decoder: FPN2Conv ----------
 [Debug] Building model
-[Debug] Loading checkpoint: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_FPN2_20250724.pth
-load checkpoint from local path: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_FPN2_20250724.pth
-2025-08-05 21:21:05,599 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
-2025-08-05 21:21:05,601 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
-2025-08-05 21:21:05,602 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
-2025-08-05 21:21:05,603 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
-2025-08-05 21:21:05,605 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
-2025-08-05 21:21:05,606 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
-2025-08-05 21:21:05,607 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
-2025-08-05 21:21:05,608 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
-2025-08-05 21:21:05,610 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
-2025-08-05 21:21:05,611 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
-2025-08-05 21:21:05,612 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
-2025-08-05 21:21:05,613 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
-2025-08-05 21:21:05,615 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
-2025-08-05 21:21:05,616 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
-2025-08-05 21:21:05,617 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
-2025-08-05 21:21:05,619 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
-2025-08-05 21:21:05,620 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
-2025-08-05 21:21:05,621 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
-2025-08-05 21:21:05,622 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
-2025-08-05 21:21:05,623 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
-2025-08-05 21:21:05,625 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
-2025-08-05 21:21:05,626 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
-2025-08-05 21:21:05,627 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
-2025-08-05 21:21:05,629 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
-2025-08-05 21:21:05,632 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
-2025-08-05 21:21:05,635 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
+[Debug] Loading checkpoint: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_FPN2Conv_20250724.pth
+load checkpoint from local path: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_FPN2Conv_20250724.pth
+2025-09-05 09:35:39,388 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
+2025-09-05 09:35:39,390 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
+2025-09-05 09:35:39,391 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
+2025-09-05 09:35:39,393 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
+2025-09-05 09:35:39,394 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
+2025-09-05 09:35:39,395 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
+2025-09-05 09:35:39,397 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
+2025-09-05 09:35:39,398 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
+2025-09-05 09:35:39,400 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
+2025-09-05 09:35:39,401 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
+2025-09-05 09:35:39,403 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
+2025-09-05 09:35:39,404 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
+2025-09-05 09:35:39,406 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
+2025-09-05 09:35:39,407 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
+2025-09-05 09:35:39,409 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
+2025-09-05 09:35:39,410 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
+2025-09-05 09:35:39,411 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
+2025-09-05 09:35:39,413 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
+2025-09-05 09:35:39,414 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
+2025-09-05 09:35:39,416 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
+2025-09-05 09:35:39,417 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
+2025-09-05 09:35:39,419 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
+2025-09-05 09:35:39,420 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
+2025-09-05 09:35:39,422 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
+2025-09-05 09:35:39,426 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
+2025-09-05 09:35:39,428 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
 [Debug] Starting measure_speed
 [Debug] Warm-up: first batch keys=['img_metas', 'img', 'semantic_indices']
 [Debug] Completed 10 warm-up iterations
 [Debug] Timing: first batch keys=['img_metas', 'img', 'semantic_indices']
-[Debug] Batch 0 latency: 384.3 ms
-[Debug] Batch 50 latency: 366.1 ms
-[Debug] Batch 100 latency: 362.1 ms
+[Debug] Batch 0 latency: 335.8 ms
+[Debug] Batch 50 latency: 338.7 ms
+[Debug] Batch 100 latency: 588.5 ms
 [Debug] Completed 150 timed iterations
 [Debug] Average latency computed over 150 batches
-[Debug] Decoder-only Batch 0 latency: 1.3 ms
+[Debug] Decoder-only Batch 0 latency: 3.6 ms
 [Debug] Decoder-only Batch 50 latency: 1.3 ms
 [Debug] Decoder-only Batch 100 latency: 1.3 ms
 [Debug] Decoder-only average latency over 150 batches: 1.3 ms
-Average full-pipeline latency for FPN2: 363.1 ms/batch
-Average decoder-only latency for FPN2: 1.3 ms/batch
-[Debug] ---------- Decoder: FPN2_256 ----------
+Average full-pipeline latency for FPN2Conv: 433.0 ms/batch
+Average decoder-only latency for FPN2Conv: 1.3 ms/batch
+[Debug] ---------- Decoder: FPN3Conv ----------
 [Debug] Building model
-[Debug] Loading checkpoint: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_FPN2_256_20250727.pth
-load checkpoint from local path: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_FPN2_256_20250727.pth
-2025-08-05 21:23:15,597 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
-2025-08-05 21:23:15,599 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
-2025-08-05 21:23:15,600 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
-2025-08-05 21:23:15,601 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
-2025-08-05 21:23:15,603 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
-2025-08-05 21:23:15,604 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
-2025-08-05 21:23:15,605 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
-2025-08-05 21:23:15,606 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
-2025-08-05 21:23:15,608 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
-2025-08-05 21:23:15,609 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
-2025-08-05 21:23:15,610 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
-2025-08-05 21:23:15,612 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
-2025-08-05 21:23:15,613 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
-2025-08-05 21:23:15,614 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
-2025-08-05 21:23:15,616 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
-2025-08-05 21:23:15,617 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
-2025-08-05 21:23:15,618 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
-2025-08-05 21:23:15,619 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
-2025-08-05 21:23:15,620 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
-2025-08-05 21:23:15,622 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
-2025-08-05 21:23:15,623 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
-2025-08-05 21:23:15,624 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
-2025-08-05 21:23:15,625 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
-2025-08-05 21:23:15,627 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
-2025-08-05 21:23:15,630 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
-2025-08-05 21:23:15,633 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
+[Debug] Loading checkpoint: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_FPN3Conv_20250806.pth
+load checkpoint from local path: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_FPN3Conv_20250806.pth
+2025-09-05 09:38:34,935 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
+2025-09-05 09:38:34,937 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
+2025-09-05 09:38:34,938 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
+2025-09-05 09:38:34,940 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
+2025-09-05 09:38:34,941 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
+2025-09-05 09:38:34,943 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
+2025-09-05 09:38:34,945 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
+2025-09-05 09:38:34,946 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
+2025-09-05 09:38:34,948 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
+2025-09-05 09:38:34,950 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
+2025-09-05 09:38:34,951 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
+2025-09-05 09:38:34,953 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
+2025-09-05 09:38:34,954 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
+2025-09-05 09:38:34,956 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
+2025-09-05 09:38:34,958 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
+2025-09-05 09:38:34,959 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
+2025-09-05 09:38:34,961 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
+2025-09-05 09:38:34,963 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
+2025-09-05 09:38:34,965 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
+2025-09-05 09:38:34,966 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
+2025-09-05 09:38:34,968 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
+2025-09-05 09:38:34,969 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
+2025-09-05 09:38:34,971 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
+2025-09-05 09:38:34,973 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
+2025-09-05 09:38:34,977 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
+2025-09-05 09:38:34,979 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
 [Debug] Starting measure_speed
 [Debug] Warm-up: first batch keys=['img_metas', 'img', 'semantic_indices']
 [Debug] Completed 10 warm-up iterations
 [Debug] Timing: first batch keys=['img_metas', 'img', 'semantic_indices']
-[Debug] Batch 0 latency: 387.0 ms
-[Debug] Batch 50 latency: 365.7 ms
-[Debug] Batch 100 latency: 372.2 ms
+[Debug] Batch 0 latency: 564.1 ms
+[Debug] Batch 50 latency: 587.4 ms
+[Debug] Batch 100 latency: 585.7 ms
 [Debug] Completed 150 timed iterations
 [Debug] Average latency computed over 150 batches
-[Debug] Decoder-only Batch 0 latency: 9.4 ms
-[Debug] Decoder-only Batch 50 latency: 8.8 ms
-[Debug] Decoder-only Batch 100 latency: 8.4 ms
-[Debug] Decoder-only average latency over 150 batches: 8.7 ms
-Average full-pipeline latency for FPN2_256: 370.6 ms/batch
-Average decoder-only latency for FPN2_256: 8.7 ms/batch
+[Debug] Decoder-only Batch 0 latency: 3.9 ms
+[Debug] Decoder-only Batch 50 latency: 1.6 ms
+[Debug] Decoder-only Batch 100 latency: 1.6 ms
+[Debug] Decoder-only average latency over 150 batches: 1.6 ms
+Average full-pipeline latency for FPN3Conv: 589.0 ms/batch
+Average decoder-only latency for FPN3Conv: 1.6 ms/batch
+[Debug] ---------- Decoder: FPN5Res18 ----------
+[Debug] Building model
+[Debug] Loading checkpoint: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_FPN5Res18_20250830.pth
+load checkpoint from local path: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_FPN5Res18_20250830.pth
+2025-09-05 09:41:57,736 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
+2025-09-05 09:41:57,738 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
+2025-09-05 09:41:57,740 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
+2025-09-05 09:41:57,741 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
+2025-09-05 09:41:57,743 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
+2025-09-05 09:41:57,744 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
+2025-09-05 09:41:57,746 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
+2025-09-05 09:41:57,747 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
+2025-09-05 09:41:57,749 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
+2025-09-05 09:41:57,750 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
+2025-09-05 09:41:57,752 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
+2025-09-05 09:41:57,753 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
+2025-09-05 09:41:57,755 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
+2025-09-05 09:41:57,756 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
+2025-09-05 09:41:57,758 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
+2025-09-05 09:41:57,759 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
+2025-09-05 09:41:57,760 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
+2025-09-05 09:41:57,762 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
+2025-09-05 09:41:57,764 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
+2025-09-05 09:41:57,770 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
+2025-09-05 09:41:57,772 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
+2025-09-05 09:41:57,773 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
+2025-09-05 09:41:57,775 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
+2025-09-05 09:41:57,777 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
+2025-09-05 09:41:57,781 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
+2025-09-05 09:41:57,784 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
+[Debug] Starting measure_speed
+[Debug] Warm-up: first batch keys=['img_metas', 'img', 'semantic_indices']
+[Debug] Completed 10 warm-up iterations
+[Debug] Timing: first batch keys=['img_metas', 'img', 'semantic_indices']
+[Debug] Batch 0 latency: 540.1 ms
+[Debug] Batch 50 latency: 339.6 ms
+[Debug] Batch 100 latency: 339.3 ms
+[Debug] Completed 150 timed iterations
+[Debug] Average latency computed over 150 batches
+[Debug] Decoder-only Batch 0 latency: 3.5 ms
+[Debug] Decoder-only Batch 50 latency: 3.4 ms
+[Debug] Decoder-only Batch 100 latency: 3.3 ms
+[Debug] Decoder-only average latency over 150 batches: 3.4 ms
+Average full-pipeline latency for FPN5Res18: 376.0 ms/batch
+Average decoder-only latency for FPN5Res18: 3.4 ms/batch
+[Debug] ---------- Decoder: FPN7Conv ----------
+[Debug] Building model
+[Debug] Loading checkpoint: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_FPN7Conv_20250807.pth
+load checkpoint from local path: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_FPN7Conv_20250807.pth
+2025-09-05 09:44:48,008 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
+2025-09-05 09:44:48,010 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
+2025-09-05 09:44:48,012 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
+2025-09-05 09:44:48,014 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
+2025-09-05 09:44:48,015 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
+2025-09-05 09:44:48,017 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
+2025-09-05 09:44:48,019 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
+2025-09-05 09:44:48,020 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
+2025-09-05 09:44:48,022 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
+2025-09-05 09:44:48,024 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
+2025-09-05 09:44:48,026 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
+2025-09-05 09:44:48,028 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
+2025-09-05 09:44:48,029 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
+2025-09-05 09:44:48,031 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
+2025-09-05 09:44:48,033 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
+2025-09-05 09:44:48,035 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
+2025-09-05 09:44:48,037 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
+2025-09-05 09:44:48,039 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
+2025-09-05 09:44:48,040 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
+2025-09-05 09:44:48,042 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
+2025-09-05 09:44:48,044 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
+2025-09-05 09:44:48,046 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
+2025-09-05 09:44:48,048 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
+2025-09-05 09:44:48,050 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
+2025-09-05 09:44:48,054 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
+2025-09-05 09:44:48,057 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
+[Debug] Starting measure_speed
+[Debug] Warm-up: first batch keys=['img_metas', 'img', 'semantic_indices']
+[Debug] Completed 10 warm-up iterations
+[Debug] Timing: first batch keys=['img_metas', 'img', 'semantic_indices']
+[Debug] Batch 0 latency: 524.3 ms
+[Debug] Batch 50 latency: 598.7 ms
+[Debug] Batch 100 latency: 598.7 ms
+[Debug] Completed 150 timed iterations
+[Debug] Average latency computed over 150 batches
+[Debug] Decoder-only Batch 0 latency: 2.7 ms
+[Debug] Decoder-only Batch 50 latency: 2.7 ms
+[Debug] Decoder-only Batch 100 latency: 2.7 ms
+[Debug] Decoder-only average latency over 150 batches: 2.7 ms
+Average full-pipeline latency for FPN7Conv: 602.1 ms/batch
+Average decoder-only latency for FPN7Conv: 2.7 ms/batch
 [Debug] ---------- Decoder: UNet3Res18 ----------
 [Debug] Building model
 [Debug] Loading checkpoint: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_UNet3Res18_20250722.pth
 load checkpoint from local path: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_UNet3Res18_20250722.pth
-2025-08-05 21:25:26,762 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
-2025-08-05 21:25:26,764 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
-2025-08-05 21:25:26,765 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
-2025-08-05 21:25:26,767 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
-2025-08-05 21:25:26,768 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
-2025-08-05 21:25:26,769 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
-2025-08-05 21:25:26,771 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
-2025-08-05 21:25:26,772 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
-2025-08-05 21:25:26,773 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
-2025-08-05 21:25:26,774 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
-2025-08-05 21:25:26,776 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
-2025-08-05 21:25:26,777 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
-2025-08-05 21:25:26,778 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
-2025-08-05 21:25:26,779 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
-2025-08-05 21:25:26,781 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
-2025-08-05 21:25:26,782 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
-2025-08-05 21:25:26,783 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
-2025-08-05 21:25:26,784 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
-2025-08-05 21:25:26,786 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
-2025-08-05 21:25:26,787 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
-2025-08-05 21:25:26,788 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
-2025-08-05 21:25:26,789 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
-2025-08-05 21:25:26,791 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
-2025-08-05 21:25:26,792 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
-2025-08-05 21:25:26,796 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
-2025-08-05 21:25:26,798 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,736 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,739 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,741 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,743 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,744 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,746 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,748 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,750 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,752 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,753 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,755 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,757 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,759 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,760 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,762 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,764 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,765 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,767 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,769 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,771 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,772 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,774 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,776 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,778 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,782 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
+2025-09-05 09:48:14,785 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
 [Debug] Starting measure_speed
 [Debug] Warm-up: first batch keys=['img_metas', 'img', 'semantic_indices']
 [Debug] Completed 10 warm-up iterations
 [Debug] Timing: first batch keys=['img_metas', 'img', 'semantic_indices']
-[Debug] Batch 0 latency: 350.7 ms
-[Debug] Batch 50 latency: 341.6 ms
+[Debug] Batch 0 latency: 576.9 ms
+[Debug] Batch 50 latency: 607.6 ms
 [Debug] Batch 100 latency: 339.7 ms
 [Debug] Completed 150 timed iterations
 [Debug] Average latency computed over 150 batches
-[Debug] Decoder-only Batch 0 latency: 2.8 ms
-[Debug] Decoder-only Batch 50 latency: 2.5 ms
-[Debug] Decoder-only Batch 100 latency: 2.6 ms
+[Debug] Decoder-only Batch 0 latency: 2.5 ms
+[Debug] Decoder-only Batch 50 latency: 2.4 ms
+[Debug] Decoder-only Batch 100 latency: 2.5 ms
 [Debug] Decoder-only average latency over 150 batches: 2.5 ms
-Average full-pipeline latency for UNet3Res18: 341.0 ms/batch
+Average full-pipeline latency for UNet3Res18: 494.3 ms/batch
 Average decoder-only latency for UNet3Res18: 2.5 ms/batch
 [Debug] ---------- Decoder: UNet4Res18 ----------
 [Debug] Building model
 [Debug] Loading checkpoint: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_UNet4Res18_20250709.pth
 load checkpoint from local path: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_UNet4Res18_20250709.pth
-2025-08-05 21:27:29,098 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
-2025-08-05 21:27:29,100 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
-2025-08-05 21:27:29,101 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
-2025-08-05 21:27:29,102 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
-2025-08-05 21:27:29,104 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
-2025-08-05 21:27:29,105 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
-2025-08-05 21:27:29,106 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
-2025-08-05 21:27:29,107 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
-2025-08-05 21:27:29,108 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
-2025-08-05 21:27:29,110 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
-2025-08-05 21:27:29,111 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
-2025-08-05 21:27:29,112 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
-2025-08-05 21:27:29,113 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
-2025-08-05 21:27:29,115 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
-2025-08-05 21:27:29,116 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
-2025-08-05 21:27:29,117 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
-2025-08-05 21:27:29,118 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
-2025-08-05 21:27:29,120 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
-2025-08-05 21:27:29,121 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
-2025-08-05 21:27:29,122 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
-2025-08-05 21:27:29,123 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
-2025-08-05 21:27:29,125 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
-2025-08-05 21:27:29,126 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
-2025-08-05 21:27:29,127 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
-2025-08-05 21:27:29,131 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
-2025-08-05 21:27:29,134 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,327 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,329 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,331 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,333 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,334 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,336 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,338 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,340 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,341 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,343 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,345 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,346 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,348 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,350 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,352 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,353 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,355 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,357 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,359 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,360 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,362 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,363 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,365 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,366 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,370 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
+2025-09-05 09:51:06,373 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
 [Debug] Starting measure_speed
 [Debug] Warm-up: first batch keys=['img_metas', 'img', 'semantic_indices']
 [Debug] Completed 10 warm-up iterations
 [Debug] Timing: first batch keys=['img_metas', 'img', 'semantic_indices']
-[Debug] Batch 0 latency: 351.6 ms
-[Debug] Batch 50 latency: 343.3 ms
-[Debug] Batch 100 latency: 345.5 ms
+[Debug] Batch 0 latency: 546.4 ms
+[Debug] Batch 50 latency: 584.3 ms
+[Debug] Batch 100 latency: 583.0 ms
 [Debug] Completed 150 timed iterations
 [Debug] Average latency computed over 150 batches
-[Debug] Decoder-only Batch 0 latency: 6.3 ms
-[Debug] Decoder-only Batch 50 latency: 6.3 ms
+[Debug] Decoder-only Batch 0 latency: 13.2 ms
+[Debug] Decoder-only Batch 50 latency: 6.2 ms
 [Debug] Decoder-only Batch 100 latency: 6.3 ms
 [Debug] Decoder-only average latency over 150 batches: 6.3 ms
-Average full-pipeline latency for UNet4Res18: 344.8 ms/batch
+Average full-pipeline latency for UNet4Res18: 586.4 ms/batch
 Average decoder-only latency for UNet4Res18: 6.3 ms/batch
 [Debug] ---------- Decoder: UNet5Res18 ----------
 [Debug] Building model
 [Debug] Loading checkpoint: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_UNet5Res18_20250725.pth
 load checkpoint from local path: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_UNet5Res18_20250725.pth
-2025-08-05 21:29:33,642 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
-2025-08-05 21:29:33,644 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
-2025-08-05 21:29:33,646 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
-2025-08-05 21:29:33,648 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
-2025-08-05 21:29:33,649 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
-2025-08-05 21:29:33,651 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
-2025-08-05 21:29:33,653 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
-2025-08-05 21:29:33,654 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
-2025-08-05 21:29:33,655 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
-2025-08-05 21:29:33,657 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
-2025-08-05 21:29:33,658 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
-2025-08-05 21:29:33,659 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
-2025-08-05 21:29:33,661 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
-2025-08-05 21:29:33,663 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
-2025-08-05 21:29:33,665 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
-2025-08-05 21:29:33,666 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
-2025-08-05 21:29:33,667 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
-2025-08-05 21:29:33,669 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
-2025-08-05 21:29:33,670 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
-2025-08-05 21:29:33,671 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
-2025-08-05 21:29:33,673 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
-2025-08-05 21:29:33,674 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
-2025-08-05 21:29:33,675 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
-2025-08-05 21:29:33,677 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
-2025-08-05 21:29:33,681 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
-2025-08-05 21:29:33,683 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,611 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,613 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,614 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,616 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,617 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,619 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,620 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,622 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,623 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,625 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,627 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,628 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,630 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,631 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,633 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,634 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,636 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,637 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,639 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,640 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,642 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,643 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,645 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,647 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,651 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
+2025-09-05 09:54:28,653 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
 [Debug] Starting measure_speed
 [Debug] Warm-up: first batch keys=['img_metas', 'img', 'semantic_indices']
 [Debug] Completed 10 warm-up iterations
 [Debug] Timing: first batch keys=['img_metas', 'img', 'semantic_indices']
-[Debug] Batch 0 latency: 355.7 ms
-[Debug] Batch 50 latency: 342.0 ms
-[Debug] Batch 100 latency: 344.4 ms
+[Debug] Batch 0 latency: 535.4 ms
+[Debug] Batch 50 latency: 582.3 ms
+[Debug] Batch 100 latency: 584.9 ms
 [Debug] Completed 150 timed iterations
 [Debug] Average latency computed over 150 batches
-[Debug] Decoder-only Batch 0 latency: 6.0 ms
+[Debug] Decoder-only Batch 0 latency: 4.1 ms
 [Debug] Decoder-only Batch 50 latency: 4.1 ms
 [Debug] Decoder-only Batch 100 latency: 4.1 ms
-[Debug] Decoder-only average latency over 150 batches: 4.2 ms
-Average full-pipeline latency for UNet5Res18: 343.5 ms/batch
-Average decoder-only latency for UNet5Res18: 4.2 ms/batch
+[Debug] Decoder-only average latency over 150 batches: 4.1 ms
+Average full-pipeline latency for UNet5Res18: 584.8 ms/batch
+Average decoder-only latency for UNet5Res18: 4.1 ms/batch
 [Debug] ---------- Decoder: UNet5Res50 ----------
 [Debug] Building model
 [Debug] Loading checkpoint: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_UNet5Res50_20250801.pth
 load checkpoint from local path: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_UNet5Res50_20250801.pth
-2025-08-05 21:31:37,776 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
-2025-08-05 21:31:37,778 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
-2025-08-05 21:31:37,779 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
-2025-08-05 21:31:37,781 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
-2025-08-05 21:31:37,782 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
-2025-08-05 21:31:37,783 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
-2025-08-05 21:31:37,785 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
-2025-08-05 21:31:37,786 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
-2025-08-05 21:31:37,787 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
-2025-08-05 21:31:37,789 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
-2025-08-05 21:31:37,790 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
-2025-08-05 21:31:37,792 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
-2025-08-05 21:31:37,793 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
-2025-08-05 21:31:37,794 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
-2025-08-05 21:31:37,796 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
-2025-08-05 21:31:37,797 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
-2025-08-05 21:31:37,798 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
-2025-08-05 21:31:37,800 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
-2025-08-05 21:31:37,801 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
-2025-08-05 21:31:37,803 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
-2025-08-05 21:31:37,804 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
-2025-08-05 21:31:37,805 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
-2025-08-05 21:31:37,807 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
-2025-08-05 21:31:37,808 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
-2025-08-05 21:31:37,812 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
-2025-08-05 21:31:37,815 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,751 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,753 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,755 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,757 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,758 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,760 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,761 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,763 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,765 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,766 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,768 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,770 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,771 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,773 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,774 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,776 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,778 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,779 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,781 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,783 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,784 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,786 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,787 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,789 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,793 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
+2025-09-05 09:57:14,796 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
 [Debug] Starting measure_speed
 [Debug] Warm-up: first batch keys=['img_metas', 'img', 'semantic_indices']
 [Debug] Completed 10 warm-up iterations
 [Debug] Timing: first batch keys=['img_metas', 'img', 'semantic_indices']
-[Debug] Batch 0 latency: 364.6 ms
-[Debug] Batch 50 latency: 355.0 ms
-[Debug] Batch 100 latency: 359.0 ms
+[Debug] Batch 0 latency: 354.1 ms
+[Debug] Batch 50 latency: 352.9 ms
+[Debug] Batch 100 latency: 353.2 ms
 [Debug] Completed 150 timed iterations
 [Debug] Average latency computed over 150 batches
-[Debug] Decoder-only Batch 0 latency: 18.7 ms
-[Debug] Decoder-only Batch 50 latency: 18.9 ms
-[Debug] Decoder-only Batch 100 latency: 18.8 ms
-[Debug] Decoder-only average latency over 150 batches: 18.9 ms
-Average full-pipeline latency for UNet5Res50: 356.9 ms/batch
-Average decoder-only latency for UNet5Res50: 18.9 ms/batch
+[Debug] Decoder-only Batch 0 latency: 18.4 ms
+[Debug] Decoder-only Batch 50 latency: 18.8 ms
+[Debug] Decoder-only Batch 100 latency: 18.7 ms
+[Debug] Decoder-only average latency over 150 batches: 18.5 ms
+Average full-pipeline latency for UNet5Res50: 353.5 ms/batch
+Average decoder-only latency for UNet5Res50: 18.5 ms/batch
 [Debug] ---------- Decoder: UNet6Res18 ----------
 [Debug] Building model
 [Debug] Loading checkpoint: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_UNet6Res18_20250730.pth
 load checkpoint from local path: work_dirs/bevformer_base_seg_det_150x150/SegDecoder_UNet6Res18_20250730.pth
-2025-08-05 21:33:47,359 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
-2025-08-05 21:33:47,361 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
-2025-08-05 21:33:47,362 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
-2025-08-05 21:33:47,363 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
-2025-08-05 21:33:47,365 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
-2025-08-05 21:33:47,366 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
-2025-08-05 21:33:47,367 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
-2025-08-05 21:33:47,369 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
-2025-08-05 21:33:47,370 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
-2025-08-05 21:33:47,371 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
-2025-08-05 21:33:47,373 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
-2025-08-05 21:33:47,374 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
-2025-08-05 21:33:47,375 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
-2025-08-05 21:33:47,377 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
-2025-08-05 21:33:47,378 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
-2025-08-05 21:33:47,380 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
-2025-08-05 21:33:47,381 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
-2025-08-05 21:33:47,382 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
-2025-08-05 21:33:47,384 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
-2025-08-05 21:33:47,385 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
-2025-08-05 21:33:47,386 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
-2025-08-05 21:33:47,388 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
-2025-08-05 21:33:47,389 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
-2025-08-05 21:33:47,390 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
-2025-08-05 21:33:47,394 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
-2025-08-05 21:33:47,397 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,175 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.0.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,177 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.1.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,179 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.2.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,180 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.3.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,182 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.4.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,183 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.5.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,185 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.6.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,186 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.7.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,188 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.8.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,190 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.9.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,191 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.10.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,193 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.11.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,194 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.12.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,196 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.13.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,197 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.14.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,199 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.15.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,201 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.16.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,202 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.17.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,204 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.18.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,205 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.19.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,207 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.20.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,208 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.21.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,210 - root - INFO - ModulatedDeformConvPack img_backbone.layer3.22.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,212 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.0.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,216 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.1.conv2 is upgraded to version 2.
+2025-09-05 09:59:27,218 - root - INFO - ModulatedDeformConvPack img_backbone.layer4.2.conv2 is upgraded to version 2.
 [Debug] Starting measure_speed
 [Debug] Warm-up: first batch keys=['img_metas', 'img', 'semantic_indices']
 [Debug] Completed 10 warm-up iterations
 [Debug] Timing: first batch keys=['img_metas', 'img', 'semantic_indices']
-[Debug] Batch 0 latency: 355.3 ms
-[Debug] Batch 50 latency: 342.6 ms
-[Debug] Batch 100 latency: 343.0 ms
+[Debug] Batch 0 latency: 341.6 ms
+[Debug] Batch 50 latency: 341.6 ms
+[Debug] Batch 100 latency: 341.0 ms
 [Debug] Completed 150 timed iterations
 [Debug] Average latency computed over 150 batches
-[Debug] Decoder-only Batch 0 latency: 3.7 ms
-[Debug] Decoder-only Batch 50 latency: 3.1 ms
-[Debug] Decoder-only Batch 100 latency: 3.1 ms
-[Debug] Decoder-only average latency over 150 batches: 3.2 ms
-Average full-pipeline latency for UNet6Res18: 344.0 ms/batch
-Average decoder-only latency for UNet6Res18: 3.2 ms/batch
+[Debug] Decoder-only Batch 0 latency: 3.2 ms
+[Debug] Decoder-only Batch 50 latency: 3.2 ms
+[Debug] Decoder-only Batch 100 latency: 3.2 ms
+[Debug] Decoder-only average latency over 150 batches: 3.3 ms
+Average full-pipeline latency for UNet6Res18: 341.2 ms/batch
+Average decoder-only latency for UNet6Res18: 3.3 ms/batch
 [Debug] Saved comparison plot to model_eval/eval_results/model_inference_latency_comparison.png
 [Debug] Saved decoder-only plot to model_eval/eval_results/model_inference_latency_comparison_decoder.png

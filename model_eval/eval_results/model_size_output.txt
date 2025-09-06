@@ -1,6 +1,8 @@
-[custom_hooks.py] ✅ custom_hooks.py loaded
+[INFO] Project root : /home/haisen/BEVFormer_segmentation_detection
+[INFO] Output dir   : /home/haisen/BEVFormer_segmentation_detection/model_eval/eval_results
+[INFO] Device       : CUDA
 
-📋 Model Summary for Conv1Linear1
+📋 Model Summary for Conv2
 ------------------------------------------------------------
 Conv2d-1                       (2, 256, 160, 160)      590,080
 ReLU-2                         (2, 256, 160, 160)            0
@@ -10,6 +12,7 @@ Total params:         591,108
 Trainable params:     591,108
 Non-trainable params: 0
 
+[OK ] Peak VRAM (single forward): 0.106 GB
 
 📋 Model Summary for DeepLabV3Plus
 ------------------------------------------------------------
@@ -44,8 +47,9 @@ Total params:         5,053,956
 Trainable params:     2,822,660
 Non-trainable params: 0
 
+[OK ] Peak VRAM (single forward): 0.843 GB
 
-📋 Model Summary for FPN2
+📋 Model Summary for FPN2Conv
 ------------------------------------------------------------
 Conv2d-1                       (2, 64, 160, 160)        16,448
 MaxPool2d-2                    (2, 256, 80, 80)              0
@@ -60,22 +64,135 @@ Total params:         107,012
 Trainable params:     107,012
 Non-trainable params: 0
 
+[OK ] Peak VRAM (single forward): 0.139 GB
 
-📋 Model Summary for FPN2_256
+📋 Model Summary for FPN3Conv
 ------------------------------------------------------------
-Conv2d-1                       (2, 256, 160, 160)       65,792
+Conv2d-1                       (2, 64, 160, 160)        16,448
 MaxPool2d-2                    (2, 256, 80, 80)              0
-Conv2d-3                       (2, 256, 80, 80)         65,792
-Upsample-4                     (2, 256, 160, 160)            0
-Conv2d-5                       (2, 256, 160, 160)    1,179,648
-BatchNorm2d-6                  (2, 256, 160, 160)          512
-ReLU-7                         (2, 256, 160, 160)            0
-Conv2d-8                       (2, 4, 160, 160)          1,028
+Conv2d-3                       (2, 64, 80, 80)          16,448
+Upsample-4                     (2, 64, 160, 160)             0
+MaxPool2d-5                    (2, 256, 40, 40)              0
+Conv2d-6                       (2, 64, 40, 40)          16,448
+Upsample-7                     (2, 64, 160, 160)             0
+Conv2d-8                       (2, 64, 160, 160)       110,592
+BatchNorm2d-9                  (2, 64, 160, 160)           128
+ReLU-10                        (2, 64, 160, 160)             0
+Conv2d-11                      (2, 4, 160, 160)            260
 ------------------------------------------------------------
-Total params:         1,312,772
-Trainable params:     1,312,772
+Total params:         160,324
+Trainable params:     160,324
 Non-trainable params: 0
 
+[OK ] Peak VRAM (single forward): 0.167 GB
+
+📋 Model Summary for FPN5Res18
+------------------------------------------------------------
+Conv2d-1                       (2, 64, 80, 80)         802,816
+BatchNorm2d-2                  (2, 64, 80, 80)             128
+ReLU-3                         (2, 64, 80, 80)               0
+Conv2d-4                       (2, 64, 80, 80)          36,864
+BatchNorm2d-5                  (2, 64, 80, 80)             128
+ReLU-6                         (2, 64, 80, 80)               0
+Conv2d-7                       (2, 64, 80, 80)          36,864
+BatchNorm2d-8                  (2, 64, 80, 80)             128
+ReLU-9                         (2, 64, 80, 80)               0
+BasicBlock-10                  (2, 64, 80, 80)          73,984
+Conv2d-11                      (2, 64, 80, 80)          36,864
+BatchNorm2d-12                 (2, 64, 80, 80)             128
+ReLU-13                        (2, 64, 80, 80)               0
+Conv2d-14                      (2, 64, 80, 80)          36,864
+BatchNorm2d-15                 (2, 64, 80, 80)             128
+ReLU-16                        (2, 64, 80, 80)               0
+BasicBlock-17                  (2, 64, 80, 80)          73,984
+Conv2d-18                      (2, 128, 40, 40)         73,728
+BatchNorm2d-19                 (2, 128, 40, 40)            256
+ReLU-20                        (2, 128, 40, 40)              0
+Conv2d-21                      (2, 128, 40, 40)        147,456
+BatchNorm2d-22                 (2, 128, 40, 40)            256
+Conv2d-23                      (2, 128, 40, 40)          8,192
+BatchNorm2d-24                 (2, 128, 40, 40)            256
+ReLU-25                        (2, 128, 40, 40)              0
+BasicBlock-26                  (2, 128, 40, 40)        230,144
+Conv2d-27                      (2, 128, 40, 40)        147,456
+BatchNorm2d-28                 (2, 128, 40, 40)            256
+ReLU-29                        (2, 128, 40, 40)              0
+Conv2d-30                      (2, 128, 40, 40)        147,456
+BatchNorm2d-31                 (2, 128, 40, 40)            256
+ReLU-32                        (2, 128, 40, 40)              0
+BasicBlock-33                  (2, 128, 40, 40)        295,424
+Conv2d-34                      (2, 256, 20, 20)        294,912
+BatchNorm2d-35                 (2, 256, 20, 20)            512
+ReLU-36                        (2, 256, 20, 20)              0
+Conv2d-37                      (2, 256, 20, 20)        589,824
+BatchNorm2d-38                 (2, 256, 20, 20)            512
+Conv2d-39                      (2, 256, 20, 20)         32,768
+BatchNorm2d-40                 (2, 256, 20, 20)            512
+ReLU-41                        (2, 256, 20, 20)              0
+BasicBlock-42                  (2, 256, 20, 20)        919,040
+Conv2d-43                      (2, 256, 20, 20)        589,824
+BatchNorm2d-44                 (2, 256, 20, 20)            512
+ReLU-45                        (2, 256, 20, 20)              0
+Conv2d-46                      (2, 256, 20, 20)        589,824
+BatchNorm2d-47                 (2, 256, 20, 20)            512
+ReLU-48                        (2, 256, 20, 20)              0
+BasicBlock-49                  (2, 256, 20, 20)      1,180,672
+Conv2d-50                      (2, 512, 10, 10)      1,179,648
+BatchNorm2d-51                 (2, 512, 10, 10)          1,024
+ReLU-52                        (2, 512, 10, 10)              0
+Conv2d-53                      (2, 512, 10, 10)      2,359,296
+BatchNorm2d-54                 (2, 512, 10, 10)          1,024
+Conv2d-55                      (2, 512, 10, 10)        131,072
+BatchNorm2d-56                 (2, 512, 10, 10)          1,024
+ReLU-57                        (2, 512, 10, 10)              0
+BasicBlock-58                  (2, 512, 10, 10)      3,673,088
+Conv2d-59                      (2, 512, 10, 10)      2,359,296
+BatchNorm2d-60                 (2, 512, 10, 10)          1,024
+ReLU-61                        (2, 512, 10, 10)              0
+Conv2d-62                      (2, 512, 10, 10)      2,359,296
+BatchNorm2d-63                 (2, 512, 10, 10)          1,024
+ReLU-64                        (2, 512, 10, 10)              0
+BasicBlock-65                  (2, 512, 10, 10)      4,720,640
+Conv2d-66                      (2, 64, 80, 80)           4,096
+Conv2d-67                      (2, 64, 40, 40)           8,192
+Conv2d-68                      (2, 64, 20, 20)          16,384
+Conv2d-69                      (2, 64, 10, 10)          32,768
+Conv2d-70                      (2, 64, 80, 80)         147,456
+BatchNorm2d-71                 (2, 64, 80, 80)             128
+ReLU-72                        (2, 64, 80, 80)               0
+Conv2d-73                      (2, 4, 80, 80)              260
+------------------------------------------------------------
+Total params:         23,346,180
+Trainable params:     12,179,204
+Non-trainable params: 0
+
+[OK ] Peak VRAM (single forward): 0.152 GB
+
+📋 Model Summary for FPN7Conv
+------------------------------------------------------------
+MaxPool2d-1                    (2, 256, 80, 80)              0
+MaxPool2d-2                    (2, 256, 40, 40)              0
+MaxPool2d-3                    (2, 256, 20, 20)              0
+MaxPool2d-4                    (2, 256, 10, 10)              0
+MaxPool2d-5                    (2, 256, 5, 5)                0
+MaxPool2d-6                    (2, 256, 2, 2)                0
+Conv2d-7                       (2, 64, 160, 160)        16,448
+Conv2d-8                       (2, 64, 80, 80)          16,448
+Conv2d-9                       (2, 64, 40, 40)          16,448
+Conv2d-10                      (2, 64, 20, 20)          16,448
+Conv2d-11                      (2, 64, 10, 10)          16,448
+Conv2d-12                      (2, 64, 5, 5)            16,448
+Conv2d-13                      (2, 64, 2, 2)            16,448
+Conv2d-14                      (2, 64, 160, 160)       258,048
+BatchNorm2d-15                 (2, 64, 160, 160)           128
+ReLU-16                        (2, 64, 160, 160)             0
+Conv2d-17                      (2, 4, 160, 160)            260
+------------------------------------------------------------
+Total params:         373,572
+Trainable params:     373,572
+Non-trainable params: 0
+
+[OK ] Peak VRAM (single forward): 0.266 GB
 
 📋 Model Summary for UNet3Res18
 ------------------------------------------------------------
@@ -127,6 +244,7 @@ Total params:         2,445,700
 Trainable params:     1,624,452
 Non-trainable params: 0
 
+[OK ] Peak VRAM (single forward): 0.113 GB
 
 📋 Model Summary for UNet4Res18
 ------------------------------------------------------------
@@ -197,6 +315,7 @@ Total params:         9,301,380
 Trainable params:     5,200,004
 Non-trainable params: 0
 
+[OK ] Peak VRAM (single forward): 0.161 GB
 
 📋 Model Summary for UNet5Res18
 ------------------------------------------------------------
@@ -293,6 +412,7 @@ Total params:         29,333,892
 Trainable params:     15,068,548
 Non-trainable params: 0
 
+[OK ] Peak VRAM (single forward): 0.163 GB
 
 📋 Model Summary for UNet5Res50
 ------------------------------------------------------------
@@ -495,6 +615,7 @@ Total params:         146,905,732
 Trainable params:     73,854,852
 Non-trainable params: 0
 
+[OK ] Peak VRAM (single forward): 0.490 GB
 
 📋 Model Summary for UNet6Res18
 ------------------------------------------------------------
@@ -601,4 +722,9 @@ Total params:         29,101,060
 Trainable params:     14,724,868
 Non-trainable params: 0
 
-Plot saved to: model_eval/eval_results/semantic_decoder_model_size.png
+[OK ] Peak VRAM (single forward): 0.157 GB
+Plot saved to: /home/haisen/BEVFormer_segmentation_detection/model_eval/eval_results/semantic_decoder_model_size.png
+VRAM plot saved to: /home/haisen/BEVFormer_segmentation_detection/model_eval/eval_results/semantic_decoder_vram_bar.png
+[OK ] Replaced entire section '### 2. Model Size Evaluation'
+[DONE] Model size & VRAM section replaced with both PNGs.
+

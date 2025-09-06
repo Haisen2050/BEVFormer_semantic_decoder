@@ -1,0 +1,77 @@
+Model: Unet6Res18
+  Validation num: 600
+  Divider:        0.5224
+  Pred Crossing:  0.3386
+  Boundary:       0.4963
+  mIoU:           0.4524
+
+Model: Unet5Res18
+  Validation num: 600
+  Divider:        0.5184
+  Pred Crossing:  0.3449
+  Boundary:       0.4882
+  mIoU:           0.4505
+
+Model: FPN5Res18
+  Validation num: 600
+  Divider:        0.5152
+  Pred Crossing:  0.3379
+  Boundary:       0.4809
+  mIoU:           0.4447
+
+Model: Unet5Res50
+  Validation num: 600
+  Divider:        0.5086
+  Pred Crossing:  0.3385
+  Boundary:       0.4792
+  mIoU:           0.4421
+
+Model: Unet4Res18
+  Validation num: 600
+  Divider:        0.4704
+  Pred Crossing:  0.3210
+  Boundary:       0.4562
+  mIoU:           0.4159
+
+Model: Unet3Res18
+  Validation num: 600
+  Divider:        0.4314
+  Pred Crossing:  0.2920
+  Boundary:       0.4317
+  mIoU:           0.3850
+
+Model: DeepLabV3Plus
+  Validation num: 600
+  Divider:        0.4167
+  Pred Crossing:  0.2673
+  Boundary:       0.4182
+  mIoU:           0.3674
+
+Model: FPN7Conv
+  Validation num: 600
+  Divider:        0.3090
+  Pred Crossing:  0.2190
+  Boundary:       0.3910
+  mIoU:           0.3063
+
+Model: Conv2
+  Validation num: 600
+  Divider:        0.3060
+  Pred Crossing:  0.2236
+  Boundary:       0.3536
+  mIoU:           0.2944
+
+Model: FPN3Conv
+  Validation num: 600
+  Divider:        0.2967
+  Pred Crossing:  0.2185
+  Boundary:       0.3580
+  mIoU:           0.2911
+
+Model: FPN2Conv
+  Validation num: 600
+  Divider:        0.2791
+  Pred Crossing:  0.2091
+  Boundary:       0.3429
+  mIoU:           0.2771
+

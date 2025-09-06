@@ -117,8 +117,22 @@ We evaluated a range of semantic decoder architectures on three dimensions:
 
 Each decoder was trained under the same BEVFormer-based pipeline using identical BEV feature maps. The plot below shows validation **mIoU over training epochs**, sorted by peak mIoU.
 
+| Decoder Architecture     | mIoU |
+|--------------------------|------|
+| Unet6Res18               | 0.4524 |
+| Unet5Res18               | 0.4505 |
+| FPN5Res18                | 0.4447 |
+| Unet5Res50               | 0.4421 |
+| Unet4Res18               | 0.4159 |
+| Unet3Res18               | 0.385 |
+| DeepLabV3Plus            | 0.3674 |
+| FPN7Conv                 | 0.3063 |
+| Conv2                    | 0.2944 |
+| FPN3Conv                 | 0.2911 |
+| FPN2Conv                 | 0.2771 |
+
 <div align="center">
-  <img src="./model_eval/eval_results/semantic_decoder_miou.png" width="600"/>
+  <img src="./model_eval/eval_results/semantic_decoder_miou_bar.png" width="600"/>
 </div>
 
 This helps identify which architectures converge faster and reach higher segmentation accuracy.
@@ -127,44 +141,54 @@ This helps identify which architectures converge faster and reach higher segment
 
 ### 2. Model Size Evaluation
 
-We benchmarked the **number of trainable parameters** in each decoder:
+We benchmarked the **number of trainable parameters** and the **peak VRAM usage (single forward)** for each decoder.
 
-| Decoder Architecture     | Trainable Parameters |
-|--------------------------|----------------------|
-| FPN1                     | 0.05 M               |
-| FPN2                     | 0.11 M               |
-| Conv1Linear1             | 0.59 M               |
-| UNet2Down1Up             | 1.62 M               |
-| DeepLabV3Plus            | 2.82 M               |
-| UNet3Down2Up             | 5.20 M               |
-
-Decoders like FPN1 and FPN2 offer extremely compact architectures, making them ideal for low-resource environments.
-
-A visual comparison is also available:
+| Decoder Architecture     | Trainable (M) | Total (M) | Peak VRAM (GB) |
+|--------------------------|---------------|-----------|----------------|
+| UNet5Res50               |       73.85 |    146.91 |          0.490 |
+| UNet5Res18               |       15.07 |     29.33 |          0.163 |
+| UNet6Res18               |       14.72 |     29.10 |          0.157 |
+| FPN5Res18                |       12.18 |     23.35 |          0.152 |
+| UNet4Res18               |        5.20 |      9.30 |          0.161 |
+| DeepLabV3Plus            |        2.82 |      5.05 |          0.843 |
+| UNet3Res18               |        1.62 |      2.45 |          0.113 |
+| Conv2                    |        0.59 |      0.59 |          0.106 |
+| FPN7Conv                 |        0.37 |      0.37 |          0.266 |
+| FPN3Conv                 |        0.16 |      0.16 |          0.167 |
+| FPN2Conv                 |        0.11 |      0.11 |          0.139 |
 
 <div align="center">
   <img src="./model_eval/eval_results/semantic_decoder_model_size.png" width="500"/>
 </div>
 
----
+<div align="center">
+  <img src="./model_eval/eval_results/semantic_decoder_vram_bar.png" width="500"/>
+</div>
 
+---
 ### 3. Inference Speed Evaluation
 
 We measured average inference latency (batch size = 1, input: 256×128×128) on a single GPU.
 
 | Decoder                 | Full Time (ms) | FPS Full | Decoder-Only (ms) | FPS Dec |
 |-------------------------|----------------|----------|-------------------|---------|
-| Conv1Linear1            | 361.20         | 2.77     | 3.80              | 263.16  |
-| DeepLabV3Plus           | 381.60         | 2.62     | 20.60             | 48.54   |
-| FPN2                    | 363.10         | 2.75     | 1.30              | 769.23  |
-| FPN2_256                | 370.60         | 2.70     | 8.70              | 114.94  |
-| UNet3Res18              | 341.00         | 2.93     | 2.50              | 400.00  |
-| UNet4Res18              | 344.80         | 2.90     | 6.30              | 158.73  |
-| UNet5Res18              | 343.50         | 2.91     | 4.20              | 238.10  |
-| UNet5Res50              | 356.90         | 2.80     | 18.90             | 52.91   |
-| UNet6Res18              | 344.00         | 2.91     | 3.20              | 312.50  |
+| Conv2                   | 517.20         | 1.93     | 3.60              | 277.78  |
+| DeepLabV3Plus           | 576.40         | 1.73     | 33.40             | 29.94   |
+| FPN2Conv                | 433.00         | 2.31     | 1.30              | 769.23  |
+| FPN3Conv                | 589.00         | 1.70     | 1.60              | 625.00  |
+| FPN5Res18               | 376.00         | 2.66     | 3.40              | 294.12  |
+| FPN7Conv                | 602.10         | 1.66     | 2.70              | 370.37  |
+| UNet3Res18              | 494.30         | 2.02     | 2.50              | 400.00  |
+| UNet4Res18              | 586.40         | 1.71     | 6.30              | 158.73  |
+| UNet5Res18              | 584.80         | 1.71     | 4.10              | 243.90  |
+| UNet5Res50              | 353.50         | 2.83     | 18.50             | 54.05   |
+| UNet6Res18              | 341.20         | 2.93     | 3.30              | 303.03  |
 
 ![Decoder-only latency comparison](model_eval/eval_results/model_inference_latency_comparison_decoder.png)
+
+### 4. Result Visualization
+
+![Urban scenario comparison](model_eval/eval_results/model_debug_visu_combined/0af0db1da3634eb598667a0b6f29f7a9.png)
 
 ## Project Structure (Tentative)
 
